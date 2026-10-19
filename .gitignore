@@ -1,0 +1,28 @@
+# sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# secretos y entorno
+.env
+.env.*
+*.pem
+*.key
+local.properties
+
+# Android y Gradle
+*.iml
+.gradle
+/build
+/captures
+.externalNativeBuild
+.cxx
+
+# Android Studio
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.vscode/

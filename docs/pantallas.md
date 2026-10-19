@@ -2,6 +2,17 @@
 
 Implementación de cada pantalla en la app Android. El diseño, el contenido y los estados de cada una están en la [documentación general](https://github.com/Ju4nmaFd3z/Society/blob/main/docs/diseno/pantallas/README.md).
 
+## Navegación
+
+Las rutas están en `navigation/Rutas.kt`, una por pantalla. Sus nombres coinciden con los del [flujo de navegación](https://github.com/Ju4nmaFd3z/Society/blob/main/docs/diseno/flujo-de-navegacion/README.md).
+
+| Ruta | Pantalla | Se llega desde |
+| --- | --- | --- |
+| `Rutas.INICIO` | 01. Inicio | Punto de partida de la app |
+| `Rutas.ANALISIS` | 02. Análisis | Inicio, al pulsar Continuar en un local o desde el buscador de página web |
+
+El grafo de navegación aún no está montado. Falta añadir la dependencia de Navigation Compose.
+
 ## 01. Inicio
 
 Especificación: [01. Inicio](https://github.com/Ju4nmaFd3z/Society/blob/main/docs/diseno/pantallas/01-inicio.md).
@@ -21,3 +32,15 @@ Carpeta: `feature/inicio/`, dentro de `app/src/main/java/com/alanturing/society/
 | `model/Local.kt` | El local tal como lo usa la interfaz. |
 
 Estado: esqueleto. Cada archivo contiene solo su descripción y la lógica está sin implementar.
+
+## 02. Análisis
+
+Especificación: [02. Análisis](https://github.com/Ju4nmaFd3z/Society/blob/main/docs/diseno/pantallas/02-analisis.md).
+
+Carpeta: `feature/analisis/`, dentro de `app/src/main/java/com/alanturing/society/`.
+
+| Archivo | Función |
+| --- | --- |
+| `ui/AnalisisScreen.kt` | La pantalla en Compose. Es el destino de la ruta desde Inicio. |
+
+Estado: esqueleto. El archivo contiene solo su descripción. Quedan por definir el contenido y los estados de la pantalla, y con ellos el resto de archivos.

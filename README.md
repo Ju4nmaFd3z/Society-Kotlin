@@ -29,6 +29,7 @@ El código se organiza por pantalla o funcionalidad, no por tipo de archivo. La 
 - Proyecto Android base con Compose y Material 3.
 - Estructura de carpetas por funcionalidad.
 - Esqueleto de la pantalla Inicio, con cada archivo descrito pero sin implementar.
+- Primera ruta definida (Inicio → Análisis) y esqueleto de la pantalla Análisis.
 
 **Pendiente**
 
@@ -36,6 +37,8 @@ El código se organiza por pantalla o funcionalidad, no por tipo de archivo. La 
 - Adaptar el tema a la identidad de marca. Hoy mantiene los colores y el modo oscuro por defecto de la plantilla, y el diseño pide modo claro.
 - Sustituir la pantalla de ejemplo de `MainActivity` por la pantalla Inicio.
 - Implementar la pantalla Inicio.
+- Añadir Navigation Compose y montar el grafo de navegación en `MainActivity`.
+- Definir el contenido de la pantalla Análisis y completar su esqueleto.
 
 ## Claves de API
 

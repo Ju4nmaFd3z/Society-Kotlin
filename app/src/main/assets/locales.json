@@ -348,32 +348,6 @@
         },
         {
           "name": "https://picsum.photos/seed/playadorada3/800/600"
-        },
-        {
-          "name": "formattedAddress",
-          :
-          "Calle Victoria 77, Málaga",
-          "rating": 4.0,
-          "userRatingCount": 178,
-          "photos": [
-            {
-              "name": "https://picsum.photos/seed/amigos1/800/600"
-            }
-          ]
-        },
-        {
-          "id": "loc_010",
-          "displayName": {
-            "text": "Mesón Casa Lola"
-          },
-          "formattedAddress": "Calle Pozos Dulces 14, Málaga",
-          "rating": 4.2,
-          "userRatingCount": 455,
-          "photos": [
-            {
-              "name": "https://picsum.photos/seed/lola1/800/600"
-            }
-          ]
         }
       ]
     }

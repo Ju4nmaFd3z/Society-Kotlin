@@ -1,13 +1,9 @@
 package com.alanturing.society.navigation
 
-/**
- * Nombres de las rutas de la app, uno por pantalla, para no escribirlos a mano.
- * Coinciden con los nombres de las pantallas en el flujo de navegación y en Figma.
- *
- * Primera ruta: de INICIO a ANALISIS, al pulsar Continuar en un local o desde el
- * buscador de página web.
- */
-object Rutas {
-    const val INICIO = "inicio"
-    const val ANALISIS = "analisis"
-}
+import kotlinx.serialization.Serializable
+
+@Serializable
+object Inicio // punto de partida de la app, no recibe datos.
+
+@Serializable
+data class Analisis(val localId: String) // Recibe solo el ID del local

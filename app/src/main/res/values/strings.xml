@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">society</string>
+
+    <!-- Pantalla Inicio -->
+    <string name="inicio_buscador">Nombre del local o zona</string>
+    <string name="inicio_estado_inicial">No se han buscado locales todavía</string>
+    <string name="inicio_estado_vacio">No se han encontrado locales</string>
+    <string name="inicio_estado_error">Error de red. Revisa tu conexión e inténtalo de nuevo.</string>
+    <string name="inicio_reintentar">Reintentar</string>
 </resources>

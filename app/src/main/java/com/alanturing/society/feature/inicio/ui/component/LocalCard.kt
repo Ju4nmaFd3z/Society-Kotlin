@@ -26,26 +26,26 @@ import androidx.compose.ui.graphics.Color
 
 
 
-// composable para tarjeta de cada local.
+// Composable para tarjeta de cada local
 @Composable
 fun LocalCard(local: Local, modifier: Modifier = Modifier) {
 
     Card(modifier = modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(12.dp)) {
 
-            if (local.hasPhotos) { // si no devuelve null local.photos.
+            if (local.hasPhotos) { // Si no devuelve null local.photos
 
-                // Lazy Row sirve para hacer el carrusel con una distancia de 8.dp entre imagenes.
+                // Lazy Row sirve para hacer el carrusel con una distancia de 8.dp entre imagenes
                 LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     items(local.photos) { url ->
-                        AsyncImage( // cada imagen del local
+                        AsyncImage( // Cada imagen del local
                             model = url,
                             contentDescription = null,
                             contentScale = ContentScale.Fit,  // La imagen llena su caja sin recortarse
                             placeholder = ColorPainter(Color.White),
                             modifier = Modifier
                                 .height(140.dp)
-                                .widthIn(min = 140.dp) // ancho mínimo mientras carga
+                                .widthIn(min = 140.dp) // Ancho mínimo mientras carga
                         )
                     }
                 }
@@ -60,7 +60,7 @@ fun LocalCard(local: Local, modifier: Modifier = Modifier) {
                 maxLines = 1
             )
 
-            Text(text = "${local.ratingText} (${local.userRatingCount})") // media de reseñas y numero total de reseñas.
+            Text(text = "${local.ratingText} (${local.userRatingCount})") // Media de reseñas y numero total de reseñas
             Text(
                 text = local
                     .address,

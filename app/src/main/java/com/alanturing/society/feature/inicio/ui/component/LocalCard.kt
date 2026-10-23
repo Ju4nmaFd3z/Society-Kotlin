@@ -18,7 +18,7 @@ import com.alanturing.society.feature.inicio.model.Local
 import androidx.compose.foundation.lazy.items
 
 
-// composable para tarjeta de cada local.
+// Composable para tarjeta de cada local.
 @Composable
 fun LocalCard(local: Local, modifier: Modifier = Modifier) {
 
@@ -28,16 +28,16 @@ fun LocalCard(local: Local, modifier: Modifier = Modifier) {
             // Lazy Row sirve para hacer el carrusel con una distancia de 8.dp entre imagenes.
             LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 items(local.photos) { url ->
-                    AsyncImage( // cada imagen del local
+                    AsyncImage( // Cada imagen del local
                         model = url,
                         contentDescription = null,
-                        modifier = Modifier.wrapContentWidth().height(140.dp) // wrapContentWidht para que ocupe el ancho de su propia imagen
+                        modifier = Modifier.wrapContentWidth().height(140.dp) // WrapContentWidht para que ocupe el ancho de su propia imagen
                     )
                 }
             }
 
             Text(text = local.name, style = MaterialTheme.typography.titleMedium)
-            Text(text = "${local.ratingText} (${local.userRatingCount})") // media de reseñas y numero total de reseñas.
+            Text(text = "${local.ratingText} (${local.userRatingCount})") // Media de reseñas y numero total de reseñas.
             Text(text = local.address, style = MaterialTheme.typography.bodySmall)
         }
     }

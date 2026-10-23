@@ -2,10 +2,12 @@ package com.alanturing.society.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
-
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+// Colores de marca de Society
+val AzulSociety = Color(0xFF1033EF)
+val AmarilloSociety = Color(0xFFF5C518)
+val Tinta = Color(0xFF151515)
+val Blanco = Color(0xFFFFFFFF)
+val Papel = Color(0xFFF2F1EC)
+val PapelCalido = Color(0xFFF4F2EC)
+val Piedra = Color(0xFFE3E0D8)
+val GrisTexto = Color(0xFF6F6B62)

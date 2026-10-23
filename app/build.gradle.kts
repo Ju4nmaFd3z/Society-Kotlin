@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     // activa el plugin del compilador que genera el código de @Serializable
     alias(libs.plugins.kotlin.serialization)
+    id("com.google.devtools.ksp") // sobre hilt
+    id("com.google.dagger.hilt.android") // dagger sobre hilt
 }
 
 android {
@@ -30,8 +32,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures {
         compose = true
@@ -57,4 +59,6 @@ dependencies {
     implementation(libs.coil.compose) // Dependencia de coil para mostrar imágenes de internet.
     implementation(libs.androidx.navigation.compose) // Navigation compose
     implementation(libs.kotlinx.serialization.json) // Formato JSON, Navigation lo utiliza para guardar datos de rutas
+    implementation("com.google.dagger:hilt-android:2.59.2") // hilt
+    ksp("com.google.dagger:hilt-android-compiler:2.59.2") // hilt
 }

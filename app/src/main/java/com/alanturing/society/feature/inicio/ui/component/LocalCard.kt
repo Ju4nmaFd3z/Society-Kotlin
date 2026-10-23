@@ -28,9 +28,16 @@ import androidx.compose.ui.graphics.Color
 
 // composable para tarjeta de cada local.
 @Composable
-fun LocalCard(local: Local, modifier: Modifier = Modifier) {
+fun LocalCard(
+    local: Local,
+    analizarClick: (String) -> Unit,
+    modifier: Modifier = Modifier)
+{
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        onClick = { onAnalizarClick(local.id) }
+    ) {
 
-    Card(modifier = modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(12.dp)) {
 
             if (local.hasPhotos) { // si no devuelve null local.photos.
@@ -69,6 +76,12 @@ fun LocalCard(local: Local, modifier: Modifier = Modifier) {
                     .bodySmall,
                 maxLines = 2
             )
+            Button (
+                onClick = { analizarClick(local.id)},
+                modifier = Modifier.align(Aligment.End)
+            ) {
+                Text("Analizar")
+            }
         }
     }
 }
@@ -77,7 +90,7 @@ fun LocalCard(local: Local, modifier: Modifier = Modifier) {
 @Composable
 private fun PreviewConFotos() {
     LocalCard(
-        Local(
+        local = Local(
             id = "1",
             name = "Bar El Boquerón Dorado",
             address = "Calle Larios 12, Málaga",
@@ -88,6 +101,7 @@ private fun PreviewConFotos() {
                 "https://picsum.photos/seed/boqueron2/800/600",
                 "https://picsum.photos/seed/boqueron3/800/600"
             )
-        )
+        ),
+        onAnalizarClick = {}
     )
 }

@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    // activa el plugin del compilador que genera el código de @Serializable
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -37,7 +39,6 @@ android {
 }
 
 dependencies {
-    implementation("io.coil-kt:coil-compose:2.7.0") // Dependencia de coil para mostrar imágenes de internet.
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
@@ -53,4 +54,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.coil.compose) // Dependencia de coil para mostrar imágenes de internet.
+    implementation(libs.androidx.navigation.compose) // Navigation compose
+    implementation(libs.kotlinx.serialization.json) // Formato JSON, Navigation lo utiliza para guardar datos de rutas
 }

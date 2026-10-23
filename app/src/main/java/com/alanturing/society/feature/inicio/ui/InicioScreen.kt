@@ -99,7 +99,7 @@ fun InicioScreen(
     }
 }
 
-// Columna centrada que ocupa el espacio que deja el buscador, para los mensajes.
+// Columna centrada que ocupa el espacio que deja el buscador, para los mensajes
 @Composable
 private fun Centrado(modifier: Modifier, contenido: @Composable ColumnScope.() -> Unit) {
     Column(
@@ -112,7 +112,7 @@ private fun Centrado(modifier: Modifier, contenido: @Composable ColumnScope.() -
     )
 }
 
-// Datos de ejemplo solo para las previews. El tercero no tiene fotos.
+// Datos de ejemplo solo para las previews. El tercero no tiene fotos
 private val localesDeEjemplo = listOf(
     Local(
         id = "loc_001",
@@ -140,7 +140,7 @@ private val localesDeEjemplo = listOf(
     )
 )
 
-// Pasa a la preview cada uno de los cinco estados.
+// Pasa a la preview cada uno de los cinco estados
 class EstadosPreviewProvider : PreviewParameterProvider<InicioUiState> {
     override val values: Sequence<InicioUiState> = sequenceOf(
         InicioUiState.Inicial,

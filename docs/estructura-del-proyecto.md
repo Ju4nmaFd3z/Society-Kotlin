@@ -24,7 +24,7 @@ Las rutas parten de `app/src/main/java/com/alanturing/society/`.
 
 ## Dependencias previstas
 
-Aún no están añadidas a `gradle/libs.versions.toml`.
+Aún no están añadidas a `gradle/libs.versions.toml`. Coil sí está añadida, declarada directamente en `app/build.gradle.kts`.
 
 - Retrofit con kotlinx.serialization, para llamar a Google Maps.
 - Paging 3, para la lista perezosa.

@@ -28,15 +28,16 @@ El código se organiza por pantalla o funcionalidad, no por tipo de archivo. La 
 
 - Proyecto Android base con Compose y Material 3.
 - Estructura de carpetas por funcionalidad.
-- Esqueleto de la pantalla Inicio, con cada archivo descrito pero sin implementar.
+- Parte visual de la pantalla Inicio (buscador, estados y lista de tarjetas), sin funcionalidad real.
+- Esqueleto de la capa de datos de Inicio (`InicioViewModel`, `PlacesRepository`, `PlacesApi` y `LocalesPagingSource`), con cada archivo descrito pero sin implementar.
 - Primera ruta definida (Inicio → Análisis) y esqueleto de la pantalla Análisis.
 
 **Pendiente**
 
-- Añadir las dependencias previstas (Retrofit, kotlinx.serialization, Paging 3 y Coil) y el permiso de acceso a Internet en el manifiesto.
+- Añadir el permiso de acceso a Internet en el manifiesto y las dependencias previstas que faltan (Retrofit, kotlinx.serialization y Paging 3). Coil ya está añadida.
 - Adaptar el tema a la identidad de marca. Hoy mantiene los colores y el modo oscuro por defecto de la plantilla, y el diseño pide modo claro.
 - Sustituir la pantalla de ejemplo de `MainActivity` por la pantalla Inicio.
-- Implementar la pantalla Inicio.
+- Dar funcionalidad a la pantalla Inicio: buscador, lectura de los datos y carga por páginas.
 - Añadir Navigation Compose y montar el grafo de navegación en `MainActivity`.
 - Definir el contenido de la pantalla Análisis y completar su esqueleto.
 

@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
-    // activa el plugin del compilador que genera el código de @Serializable
+    // Activa el plugin del compilador que genera el código de @Serializable
     alias(libs.plugins.kotlin.serialization)
     id("com.google.devtools.ksp") // sobre hilt
     id("com.google.dagger.hilt.android") // dagger sobre hilt

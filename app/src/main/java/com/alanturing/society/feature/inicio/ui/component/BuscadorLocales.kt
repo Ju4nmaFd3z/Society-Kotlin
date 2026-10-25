@@ -17,30 +17,30 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun BuscadorLocales(
     texto: String,
-    cambioTexto: (String) -> Unit, // función que recibe un string y no devuelve nada
+    cambioTexto: (String) -> Unit, // Función que recibe un string y no devuelve nada
     buscar: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val puedeBuscar = texto.isNotBlank() // isNotBlank sirve para saber si hay contenido para buscar ("   " = false).
+    val puedeBuscar = texto.isNotBlank() // isNotBlank sirve para saber si hay contenido para buscar ("   " = false)
     Row(
         modifier = modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically, // alinear verticalmente
-        horizontalArrangement = Arrangement.spacedBy(8.dp) // alinear horizontalmente con 8.dp de espacio a su alrededor
+        verticalAlignment = Alignment.CenterVertically, // Alinear verticalmente
+        horizontalArrangement = Arrangement.spacedBy(8.dp) // Alinear horizontalmente con 8.dp de espacio a su alrededor
     ) {
-        OutlinedTextField( // igual que text field pero con borde alrededor
+        OutlinedTextField( // Igual que text field pero con borde alrededor
             value = texto,
             onValueChange = cambioTexto,
-            modifier = Modifier.weight(1f), // ocupa el ancho que deja el botón
-            singleLine = true, // el texto ocupa solo una línea
+            modifier = Modifier.weight(1f), // Ocupa el ancho que deja el botón
+            singleLine = true, // El texto ocupa solo una línea
             label =  { Text("Buscar local") },
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search), // imeAction es el botón de acción, el botón de la lupa del teclado del movil.
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search), // imeAction es el botón de acción, el botón de la lupa del teclado del móvil
             keyboardActions = KeyboardActions(
-                onSearch = { if (puedeBuscar) buscar(texto.trim())} // trim para quitar los espacios sobrantes.
+                onSearch = { if (puedeBuscar) buscar(texto.trim())} // trim para quitar los espacios sobrantes
             )
         )
         Button(
             onClick = { buscar(texto.trim()) },
-            enabled = puedeBuscar // desactivado si no hay texto
+            enabled = puedeBuscar // Desactivado si no hay texto
         ) {
             Text("Buscar")
             // TODO: Añadir icono de lupa.

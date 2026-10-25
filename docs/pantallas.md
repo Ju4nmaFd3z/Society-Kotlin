@@ -21,7 +21,7 @@ Carpeta: `feature/inicio/`, dentro de `app/src/main/java/com/alanturing/society/
 
 | Archivo | Función |
 | --- | --- |
-| `ui/InicioScreen.kt` | La pantalla en Compose: buscador y lista de locales. |
+| `ui/InicioScreen.kt` | La pantalla en Compose: buscador arriba y, debajo, el mensaje, la carga, el error o la lista de locales, según el estado. |
 | `ui/InicioViewModel.kt` | Guarda el texto del buscador y el estado actual, lanza la búsqueda y pide la página siguiente al llegar al final de la lista. |
 | `ui/InicioUiState.kt` | Los estados de la pantalla: inicial, cargando, vacío, error y con datos. |
 | `ui/component/LocalCard.kt` | La tarjeta de un local. |
@@ -31,7 +31,9 @@ Carpeta: `feature/inicio/`, dentro de `app/src/main/java/com/alanturing/society/
 | `data/dto/` | Las respuestas de la API tal y como llegan. Prevista, aún no creada. |
 | `model/Local.kt` | El local tal como lo usa la interfaz. |
 
-Estado: esqueleto. Cada archivo contiene solo su descripción y la lógica está sin implementar.
+Los datos de ejemplo están en `app/src/main/assets/locales.json`.
+
+Estado: la parte visual está hecha (`InicioScreen`, `InicioUiState` y `LocalCard`), sin funcionalidad real todavía. `InicioViewModel`, `PlacesRepository`, `PlacesApi` y `LocalesPagingSource` siguen siendo esqueleto. La tarjeta no tiene botón Continuar hasta que se vea el enrutamiento.
 
 ## 02. Análisis
 

@@ -44,10 +44,11 @@ import com.alanturing.society.ui.theme.SocietyTheme
  */
 @Composable
 fun InicioScreen(
-    estado: InicioUiState,
+    estado: InicioUiState, aefadfsadfds
     modifier: Modifier = Modifier,
     onBuscar: (String) -> Unit = {},
-    onReintentar: () -> Unit = {}
+    onReintentar: () -> Unit = {},
+    onAnalizar: (String) -> Unit = {}
 ) {
     var consulta by rememberSaveable { mutableStateOf("") }
 

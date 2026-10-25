@@ -19,6 +19,8 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.alanturing.society.feature.inicio.model.Local
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,7 +37,7 @@ fun LocalCard(
 {
     Card(
         modifier = modifier.fillMaxWidth(),
-        onClick = { onAnalizarClick(local.id) }
+        onClick = { analizarClick(local.id) }
     ) {
 
         Column(modifier = Modifier.padding(12.dp)) {
@@ -78,7 +80,7 @@ fun LocalCard(
             )
             Button (
                 onClick = { analizarClick(local.id)},
-                modifier = Modifier.align(Aligment.End)
+                modifier = Modifier.align(Alignment.End)
             ) {
                 Text("Analizar")
             }
@@ -102,6 +104,6 @@ private fun PreviewConFotos() {
                 "https://picsum.photos/seed/boqueron3/800/600"
             )
         ),
-        onAnalizarClick = {}
+        analizarClick = {}
     )
 }

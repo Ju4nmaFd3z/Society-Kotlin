@@ -92,7 +92,7 @@ fun InicioScreen(
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 items(estado.locales, key = { it.id }) { local ->
-                    LocalCard(local = local)
+                    LocalCard(local = local, analizarClick = {local.id})
                 }
             }
         }

@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
  */
 
 
-// composable para que aparezca algo en pantalla.
+// Composable para que aparezca algo en pantalla.
 @Composable
 fun AnalisisScreen(localId: String, modifier: Modifier = Modifier) {
     Text("Análisis de $localId", modifier = modifier)

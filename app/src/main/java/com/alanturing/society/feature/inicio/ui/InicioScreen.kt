@@ -44,7 +44,7 @@ import com.alanturing.society.ui.theme.SocietyTheme
  */
 @Composable
 fun InicioScreen(
-    estado: InicioUiState, aefadfsadfds
+    estado: InicioUiState,
     modifier: Modifier = Modifier,
     onBuscar: (String) -> Unit = {},
     onReintentar: () -> Unit = {},

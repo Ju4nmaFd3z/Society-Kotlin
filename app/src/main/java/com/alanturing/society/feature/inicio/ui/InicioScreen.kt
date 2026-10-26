@@ -47,7 +47,8 @@ fun InicioScreen(
     estado: InicioUiState,
     modifier: Modifier = Modifier,
     onBuscar: (String) -> Unit = {},
-    onReintentar: () -> Unit = {}
+    onReintentar: () -> Unit = {},
+    onAnalizar: (String) -> Unit = {}
 ) {
     var consulta by rememberSaveable { mutableStateOf("") }
 
@@ -92,7 +93,7 @@ fun InicioScreen(
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 items(estado.locales, key = { it.id }) { local ->
-                    LocalCard(local = local)
+                    LocalCard(local = local, analizarClick = {local.id})
                 }
             }
         }

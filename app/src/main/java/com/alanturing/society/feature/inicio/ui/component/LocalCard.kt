@@ -19,6 +19,8 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.alanturing.society.feature.inicio.model.Local
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,9 +30,16 @@ import androidx.compose.ui.graphics.Color
 
 // Composable para tarjeta de cada local
 @Composable
-fun LocalCard(local: Local, modifier: Modifier = Modifier) {
+fun LocalCard(
+    local: Local,
+    analizarClick: (String) -> Unit,
+    modifier: Modifier = Modifier)
+{
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        onClick = { analizarClick(local.id) }
+    ) {
 
-    Card(modifier = modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(12.dp)) {
 
             if (local.hasPhotos) { // Si no devuelve null local.photos
@@ -69,6 +78,12 @@ fun LocalCard(local: Local, modifier: Modifier = Modifier) {
                     .bodySmall,
                 maxLines = 2
             )
+            Button (
+                onClick = { analizarClick(local.id)},
+                modifier = Modifier.align(Alignment.End)
+            ) {
+                Text("Analizar")
+            }
         }
     }
 }
@@ -77,7 +92,7 @@ fun LocalCard(local: Local, modifier: Modifier = Modifier) {
 @Composable
 private fun PreviewConFotos() {
     LocalCard(
-        Local(
+        local = Local(
             id = "1",
             name = "Bar El Boquerón Dorado",
             address = "Calle Larios 12, Málaga",
@@ -88,6 +103,7 @@ private fun PreviewConFotos() {
                 "https://picsum.photos/seed/boqueron2/800/600",
                 "https://picsum.photos/seed/boqueron3/800/600"
             )
-        )
+        ),
+        analizarClick = {}
     )
 }

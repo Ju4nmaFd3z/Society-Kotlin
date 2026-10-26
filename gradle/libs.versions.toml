@@ -11,7 +11,7 @@ kotlin = "2.2.10"
 composeBom = "2026.02.01"
 navigation = "2.9.8" # Componente para implementar la nevagación de la app
 kotlinxSerializationJson = "1.9.0" # librería que convierte objetos Kotlin a JSON y al revés.
-ksp = "2.3.8"
+ksp = "2.2.10-2.0.2"
 hilt = "2.57.1"
 
 

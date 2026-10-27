@@ -7,7 +7,7 @@ data class Local (
     val id: String,
     val name: String,
     val address: String,
-    val rating: Double,         // Media de resenas
+    val rating: Double,         // Media de reseñas
     val userRatingCount: Int,   // Número total de reseñas
     val photos: List<String>    // Array no implementa equals() ni hashCode() por contenido
 ) {

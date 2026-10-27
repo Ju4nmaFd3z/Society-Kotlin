@@ -34,13 +34,14 @@ import com.alanturing.society.feature.inicio.ui.component.LocalCard
 import com.alanturing.society.ui.theme.SocietyTheme
 
 /**
- * Pantalla 01 · Inicio, hecha en Compose. Muestra el buscador y, debajo, según el
- * estado: un mensaje, un indicador de carga, el aviso de error con reintento o la
- * lista de locales con carga perezosa, una LocalCard por local. El botón Continuar
- * y la navegación a la pantalla 02 · Análisis (Rutas.ANALISIS) llegarán cuando se
- * vea el enrutamiento. Por ahora es solo la parte visual: no busca ni carga nada,
- * y el texto del buscador se guarda aquí hasta que lo asuma el ViewModel.
- * Pendiente: buscador de página web (ver nota de diseño).
+ * Pantalla 02 · Empezamos («Busca tu local»), hecha en Compose. Muestra el buscador y,
+ * debajo, según el estado: un mensaje, un indicador de carga, el aviso de error con
+ * reintento o la lista de locales con carga perezosa, una LocalCard por local.
+ * Al pulsar Analizar en una tarjeta se navega a 03 · Análisis (onAnalizar).
+ * Todavía no busca ni carga nada, y el texto del buscador se guarda aquí hasta que
+ * lo asuma el ViewModel. La carpeta se llama feature/inicio por historia: en el Figma
+ * esta pantalla es la 02, y la 01 · Inicio es la bienvenida.
+ * Pendiente: buscador de página web (ver nota de diseño). El Figma actual no lo muestra.
  */
 @Composable
 fun InicioScreen(
@@ -93,7 +94,7 @@ fun InicioScreen(
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 items(estado.locales, key = { it.id }) { local ->
-                    LocalCard(local = local, analizarClick = {local.id})
+                    LocalCard(local = local, analizarClick = onAnalizar)
                 }
             }
         }

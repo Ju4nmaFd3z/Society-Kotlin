@@ -1,7 +1,7 @@
 
 /**
- * Punto de entrada de la app. Aplica el tema de Society y muestra la primera
- * pantalla, InicioScreen. Cuando haya más pantallas, aquí se montará la navegación.
+ * Punto de entrada de la app. Aplica el tema de Society y monta la navegación
+ * (SocietyNavHost), que decide qué pantalla se ve en cada momento.
  */
 
 
@@ -15,10 +15,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.alanturing.society.feature.inicio.ui.InicioScreen
-import com.alanturing.society.feature.inicio.ui.InicioUiState
+import com.alanturing.society.navigation.SocietyNavHost
 import com.alanturing.society.ui.theme.SocietyTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint // Permite que Hilt inyecte el ViewModel en las pantallas
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,10 +28,7 @@ class MainActivity : ComponentActivity() {
             SocietyTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     val screenModifier = Modifier.fillMaxSize().padding(innerPadding)
-                    InicioScreen(
-                        estado = InicioUiState.Inicial,
-                        modifier = screenModifier,
-                    )
+                    SocietyNavHost(modifier = screenModifier)
                 }
             }
         }

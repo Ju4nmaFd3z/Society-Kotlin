@@ -10,9 +10,12 @@ El código se organiza por pantalla o funcionalidad, no por tipo de archivo. Cad
 
 Las rutas parten de `app/src/main/java/com/alanturing/society/`.
 
-- `MainActivity.kt`: único punto de entrada de la app.
+- `MainActivity.kt`: único punto de entrada de la app. Monta la navegación.
+- `core/SocietyApplication.kt`: clase que arranca Hilt, necesaria para inyectar los ViewModel.
 - `core/network/`: código de red compartido por varias pantallas. Prevista, aún no creada.
 - `navigation/Rutas.kt`: un nombre de ruta por pantalla, para no escribirlas a mano.
+- `navigation/SocietyNavHost.kt`: el grafo de navegación, que enlaza cada ruta con su pantalla y los botones que llevan a la siguiente.
+- `ui/component/`: piezas visuales compartidas por varias pantallas, como `PantallaProvisional`.
 - `ui/theme/`: tema visual de la app: colores, tema y tipografía.
 - `feature/`: una carpeta por pantalla.
 
@@ -24,8 +27,9 @@ Las rutas parten de `app/src/main/java/com/alanturing/society/`.
 
 ## Dependencias previstas
 
-Aún no están añadidas a `gradle/libs.versions.toml`. Coil sí está añadida, declarada directamente en `app/build.gradle.kts`.
+Pendientes de añadir:
 
-- Retrofit con kotlinx.serialization, para llamar a Google Maps.
+- Retrofit, para llamar a Google Maps.
 - Paging 3, para la lista perezosa.
-- Coil, para cargar imágenes.
+
+Ya añadidas: Coil, para cargar imágenes; Navigation Compose y kotlinx.serialization, para la navegación; e Hilt, para inyectar los ViewModel.

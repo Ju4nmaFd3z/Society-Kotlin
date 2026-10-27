@@ -28,18 +28,19 @@ El código se organiza por pantalla o funcionalidad, no por tipo de archivo. La 
 
 - Proyecto Android base con Compose y Material 3.
 - Estructura de carpetas por funcionalidad.
-- Parte visual de la pantalla Inicio (buscador, estados y lista de tarjetas), sin funcionalidad real.
-- Esqueleto de la capa de datos de Inicio (`InicioViewModel`, `PlacesRepository`, `PlacesApi` y `LocalesPagingSource`), con cada archivo descrito pero sin implementar.
-- Primera ruta definida (Inicio → Análisis) y esqueleto de la pantalla Análisis.
+- Tema de la identidad de marca: colores y modo claro, sin color dinámico.
+- Permiso de Internet en el manifiesto. Dependencias añadidas: Coil, Navigation Compose, kotlinx.serialization e Hilt.
+- Parte visual de la pantalla 02 · Empezamos (buscador, estados y lista de tarjetas), sin funcionalidad real. Su carpeta se llama `feature/inicio`.
+- Esqueleto de la capa de datos de esa pantalla (`PlacesRepository`, `PlacesApi` y `LocalesPagingSource`), con cada archivo descrito pero sin implementar.
+- Navegación montada desde `MainActivity`, con una ruta por pantalla del diseño (15 en total) y los enlaces del flujo de Figma.
+- El resto de pantallas, de cartón piedra (`PantallaProvisional`).
 
 **Pendiente**
 
-- Añadir el permiso de acceso a Internet en el manifiesto y las dependencias previstas que faltan (Retrofit, kotlinx.serialization y Paging 3). Coil ya está añadida.
-- Adaptar el tema a la identidad de marca. Hoy mantiene los colores y el modo oscuro por defecto de la plantilla, y el diseño pide modo claro.
-- Sustituir la pantalla de ejemplo de `MainActivity` por la pantalla Inicio.
-- Dar funcionalidad a la pantalla Inicio: buscador, lectura de los datos y carga por páginas.
-- Añadir Navigation Compose y montar el grafo de navegación en `MainActivity`.
-- Definir el contenido de la pantalla Análisis y completar su esqueleto.
+- Dar funcionalidad a la pantalla 02 · Empezamos: buscador, lectura de los datos y carga por páginas. Faltan las dependencias Retrofit y Paging 3.
+- Renombrar la carpeta `feature/inicio` a `feature/empezamos`, para que coincida con el Figma, y crear la pantalla 01 · Inicio de verdad.
+- Aplicar las fuentes de la marca en `Type.kt`, que hoy mantiene la tipografía de la plantilla.
+- Implementar las pantallas de cartón piedra según el diseño de Figma.
 
 ## Claves de API
 

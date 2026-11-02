@@ -29,7 +29,7 @@ Las rutas parten de `app/src/main/java/com/alanturing/society/`.
 
 Pendientes de añadir:
 
-- Retrofit, para llamar a Google Maps.
+- Retrofit, para llamar a la API de Society.
 - Paging 3, para la lista perezosa.
 
 Ya añadidas: Coil, para cargar imágenes; Navigation Compose y kotlinx.serialization, para la navegación; e Hilt, para inyectar los ViewModel.

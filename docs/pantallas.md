@@ -40,7 +40,7 @@ La carpeta se llama `feature/inicio` porque, al empezar, se pensó como la panta
 | `ui/InicioViewModel.kt` | Guarda el texto del buscador y el estado actual, lanza la búsqueda y pide la página siguiente al llegar al final de la lista. |
 | `ui/InicioUiState.kt` | Los estados de la pantalla: inicial, cargando, vacío, error y con datos. |
 | `ui/component/LocalCard.kt` | La tarjeta de un local, con el botón Analizar. |
-| `data/PlacesApi.kt` | Las llamadas a la API de Google Maps (Places). |
+| `data/PlacesApi.kt` | Las llamadas a la búsqueda de locales de la API de Society, que consulta Google Places desde el backend. |
 | `data/PlacesRepository.kt` | Punto único de acceso a los datos para el ViewModel. |
 | `data/LocalesPagingSource.kt` | El origen de datos paginado de la lista. |
 | `data/dto/` | Las respuestas de la API tal y como llegan. Prevista, aún no creada. |

@@ -4,6 +4,8 @@ App móvil Android de Society, escrita en Kotlin con Jetpack Compose.
 
 Forma parte del proyecto Society. La documentación de producto, diseño y marca está en el repositorio general: [Society](https://github.com/Ju4nmaFd3z/Society).
 
+La app no llama directamente a servicios externos: consume la API única de Society, que vive en [Society-TypeScript](https://github.com/Ju4nmaFd3z/Society-TypeScript). Ver la [arquitectura](https://github.com/Ju4nmaFd3z/Society/blob/main/docs/arquitectura/README.md).
+
 ## Requisitos
 
 - Android Studio compatible con la versión del plugin de Android indicada en `gradle/libs.versions.toml`.
@@ -37,14 +39,16 @@ El código se organiza por pantalla o funcionalidad, no por tipo de archivo. La 
 
 **Pendiente**
 
-- Dar funcionalidad a la pantalla 02 · Empezamos: buscador, lectura de los datos y carga por páginas. Faltan las dependencias Retrofit y Paging 3.
+- Dar funcionalidad a la pantalla 02 · Empezamos: buscador, lectura de los datos y carga por páginas, contra la API de Society. Faltan las dependencias Retrofit y Paging 3.
 - Renombrar la carpeta `feature/inicio` a `feature/empezamos`, para que coincida con el Figma, y crear la pantalla 01 · Inicio de verdad.
 - Aplicar las fuentes de la marca en `Type.kt`, que hoy mantiene la tipografía de la plantilla.
 - Implementar las pantallas de cartón piedra según el diseño de Figma.
 
 ## Claves de API
 
-Las claves, como la de Google Maps, no se suben al repositorio. `local.properties` está excluido por `.gitignore`.
+La app no guarda claves de servicios externos. La de Google Maps vive solo en el backend, que es quien consulta Google Places (decisión D-05 de la arquitectura).
+
+La configuración local, como la URL de la API, va en `local.properties`, que está excluido por `.gitignore` y no se sube al repositorio.
 
 ## Convenciones
 

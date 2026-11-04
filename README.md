@@ -32,14 +32,14 @@ El código se organiza por pantalla o funcionalidad, no por tipo de archivo. La 
 - Estructura de carpetas por funcionalidad.
 - Tema de la identidad de marca: colores y modo claro, sin color dinámico.
 - Permiso de Internet en el manifiesto. Dependencias añadidas: Coil, Navigation Compose, kotlinx.serialization e Hilt.
-- Parte visual de la pantalla 02 · Empezamos (buscador, estados y lista de tarjetas), sin funcionalidad real. Su carpeta es `feature/empezamos`.
-- Esqueleto de la capa de datos de esa pantalla (`PlacesRepository`, `PlacesApi` y `LocalesPagingSource`), con cada archivo descrito pero sin implementar.
+- Pantalla 02 · Empezamos (`feature/empezamos`) funcional con datos de ejemplo: busca en `assets/locales.json`, muestra sus estados y lleva a 03 · Análisis.
+- Esqueleto de `PlacesApi` y `LocalesPagingSource`, para cuando la búsqueda use la API de Society.
 - Navegación montada desde `MainActivity`, con una ruta por pantalla del diseño (15 en total) y los enlaces del flujo de Figma.
 - El resto de pantallas, de cartón piedra (`PantallaProvisional`).
 
 **Pendiente**
 
-- Dar funcionalidad a la pantalla 02 · Empezamos: buscador, lectura de los datos y carga por páginas, contra la API de Society. Faltan las dependencias Retrofit y Paging 3.
+- Pasar la búsqueda de 02 · Empezamos a la API de Society, con carga por páginas. Faltan las dependencias Retrofit y Paging 3.
 - Crear la pantalla 01 · Inicio (bienvenida) de verdad.
 - Aplicar las fuentes de la marca en `Type.kt`, que hoy mantiene la tipografía de la plantilla.
 - Implementar las pantallas de cartón piedra según el diseño de Figma.

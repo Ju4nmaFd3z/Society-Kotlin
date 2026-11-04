@@ -35,20 +35,20 @@ Carpeta: `feature/empezamos/`, dentro de `app/src/main/java/com/alanturing/socie
 | Archivo | Función |
 | --- | --- |
 | `EmpezamosNavigation.kt` | La ruta `EmpezamosRoute` y su destino en el grafo de navegación. |
-| `ui/EmpezamosScreen.kt` | La pantalla en Compose: `BuscadorLocales` y enlace «Añádelo a mano» arriba y, debajo, la lista de locales con una `LocalCard` por local. |
-| `ui/EmpezamosViewModel.kt` | Guarda el texto del buscador y el estado actual, lanza la búsqueda y pide la página siguiente al llegar al final de la lista. |
+| `ui/EmpezamosScreen.kt` | La pantalla en Compose: `BuscadorLocales` y enlace «Añádelo a mano» arriba y, debajo, según el estado, el mensaje, la carga, el error con Reintentar o la lista de locales, con una `LocalCard` por local. |
+| `ui/EmpezamosViewModel.kt` | Lanza la búsqueda en `PlacesRepository`, guarda el estado actual y permite reintentar la última búsqueda tras un error. |
 | `ui/EmpezamosUiState.kt` | Los estados de la pantalla: inicial, cargando, vacío, error y con datos. |
 | `ui/component/BuscadorLocales.kt` | El campo de búsqueda con su botón Buscar. |
 | `ui/component/LocalCard.kt` | La tarjeta de un local, con el botón Analizar. |
 | `data/PlacesApi.kt` | Las llamadas a la búsqueda de locales de la API de Society, que consulta Google Places desde el backend. |
-| `data/PlacesRepository.kt` | Punto único de acceso a los datos para el ViewModel. |
+| `data/PlacesRepository.kt` | Punto único de acceso a los datos para el ViewModel. De momento lee `assets/locales.json` y filtra por nombre o dirección. |
 | `data/LocalesPagingSource.kt` | El origen de datos paginado de la lista. |
-| `data/dto/` | Las respuestas de la API tal y como llegan. Prevista, aún no creada. |
+| `data/dto/PlacesDto.kt` | La respuesta tal y como llega en el JSON, con la misma forma que la de Google Places. |
 | `model/Local.kt` | El local tal como lo usa la interfaz. |
 
 Los datos de ejemplo están en `app/src/main/assets/locales.json`.
 
-Estado: la parte visual está hecha (`EmpezamosScreen`, `BuscadorLocales` y `LocalCard`), sin funcionalidad real todavía: falta conectar la búsqueda con el ViewModel para que la lista se rellene, y mostrar los estados de carga, vacío y error. `EmpezamosViewModel` solo guarda el estado inicial, y `PlacesRepository`, `PlacesApi` y `LocalesPagingSource` siguen siendo esqueleto. Al pulsar Analizar en una tarjeta se navega a Análisis.
+Estado: funcional con los datos de ejemplo. La búsqueda filtra los locales de `locales.json` por nombre o dirección, con una espera simulada de medio segundo para que se vea la carga, y la pantalla muestra sus cinco estados. Al pulsar Analizar en una tarjeta se navega a Análisis con el ID del local, provisional hasta que la API devuelva el `analisisId`. Pendiente: buscar contra la API de Society (`PlacesApi`, con Retrofit) y cargar por páginas (`LocalesPagingSource`, con Paging 3); al hacerlo solo cambia `PlacesRepository`.
 
 ## 03. Análisis
 

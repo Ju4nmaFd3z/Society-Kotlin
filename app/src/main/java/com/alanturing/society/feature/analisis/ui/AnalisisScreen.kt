@@ -1,5 +1,9 @@
 package com.alanturing.society.feature.analisis.ui
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.alanturing.society.ui.component.Destino
@@ -11,14 +15,13 @@ import com.alanturing.society.ui.component.PantallaProvisional
  */
 @Composable
 fun AnalisisScreen(
-    localId: String,
-    modifier: Modifier = Modifier,
-    onContinuar: () -> Unit = {}
+    analisisId: String,
+    onTerminado: () -> Unit,
+    onCancelar: () -> Unit,
 ) {
-    PantallaProvisional(
-        numero = "03",
-        nombre = "Análisis de $localId",
-        modifier = modifier,
-        destinos = listOf(Destino("Avisarme cuando termine", onContinuar))
-    )
+    Column {
+        Text("Analizando: $analisisId")
+        Button(onClick = onTerminado) { Text("Ver resultado") }
+        TextButton(onClick = onCancelar) { Text("Cancelar") }
+    }
 }

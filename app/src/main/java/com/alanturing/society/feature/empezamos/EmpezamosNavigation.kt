@@ -24,6 +24,9 @@ fun NavGraphBuilder.empezamosDestination(
 ) {
     composable<EmpezamosRoute> {
         val viewModel: EmpezamosViewModel = hiltViewModel()
+        // collectAsState escucha el StateFlow del ViewModel y lo convierte en un estado de Compose:
+        // cada vez que el ViewModel cambia el estado, la pantalla se vuelve a dibujar sola.
+        // by permite usar estado directamente, sin escribir estado.value.
         val estado by viewModel.estado.collectAsState()
         EmpezamosScreen(
             estado = estado,

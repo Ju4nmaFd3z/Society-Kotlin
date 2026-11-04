@@ -26,14 +26,23 @@ class PlacesRepository @Inject constructor(
     suspend fun buscar(texto: String): List<Local> = withContext(Dispatchers.IO) {
         delay(500) // Simula el tiempo de respuesta de la red, para ver el estado Cargando
 
+        // assets.open abre el archivo como un flujo de bytes. bufferedReader lo lee como texto,
+        // y use { it.readText() } lee todo el texto de golpe y cierra el archivo al acabar,
+        // aunque falle a mitad (como un try-with-resources de Java).
         val contenido = context.assets.open("locales.json").bufferedReader().use { it.readText() }
+        // Convierte el texto JSON en objetos Kotlin. El tipo entre <> le dice qué forma tiene:
+        // busca en el JSON los campos de PlacesResponseDto y rellena cada propiedad por su nombre.
         val respuesta = json.decodeFromString<PlacesResponseDto>(contenido)
 
         respuesta.places
+            // filter se queda solo con los locales que cumplen la condición.
+            // ignoreCase = true hace que no importen mayúsculas: "BAR" encuentra "Bar El Boquerón".
             .filter {
                 it.displayName.text.contains(texto, ignoreCase = true) ||
                     it.formattedAddress.contains(texto, ignoreCase = true)
             }
+            // map transforma cada elemento de la lista: cada PlaceDto (forma del JSON)
+            // se convierte en un Local (lo que pinta la tarjeta) y devuelve la lista nueva.
             .map { it.toLocal() }
     }
 }

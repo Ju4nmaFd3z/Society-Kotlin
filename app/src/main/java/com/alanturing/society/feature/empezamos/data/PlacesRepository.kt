@@ -1,4 +1,4 @@
-package com.alanturing.society.feature.inicio.data
+package com.alanturing.society.feature.empezamos.data
 
 /**
  * Punto único de acceso a los datos de locales para el ViewModel.

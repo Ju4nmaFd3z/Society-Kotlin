@@ -1,4 +1,4 @@
-package com.alanturing.society.feature.inicio.data
+package com.alanturing.society.feature.empezamos.data
 
 /**
  * Origen de datos paginado para la lista perezosa. Pide a PlacesRepository cada página

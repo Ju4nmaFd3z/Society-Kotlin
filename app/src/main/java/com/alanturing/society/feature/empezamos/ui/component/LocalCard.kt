@@ -1,4 +1,4 @@
-package com.alanturing.society.feature.inicio.ui.component
+package com.alanturing.society.feature.empezamos.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,7 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.alanturing.society.feature.inicio.model.Local
+import com.alanturing.society.feature.empezamos.model.Local
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.ui.Alignment

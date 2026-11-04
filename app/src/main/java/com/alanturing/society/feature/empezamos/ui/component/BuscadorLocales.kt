@@ -1,4 +1,4 @@
-package com.alanturing.society.feature.inicio.ui.component
+package com.alanturing.society.feature.empezamos.ui.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

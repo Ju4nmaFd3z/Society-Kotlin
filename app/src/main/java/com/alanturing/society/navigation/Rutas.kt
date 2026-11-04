@@ -8,10 +8,9 @@ object Inicio // 01 · Inicio (bienvenida), punto de partida de la app, no recib
 @Serializable
 data class Analisis(val localId: String) // 03 · Análisis, recibe solo el ID del local
 
-// Pantallas de cartón piedra, sin datos todavía. El número es el del diseño en Figma.
-@Serializable
-object Empezamos // 02 · Busca tu local
+// 02 · Busca tu local: su ruta (EmpezamosRoute) está en feature/empezamos/EmpezamosNavigation.kt
 
+// Pantallas de cartón piedra, sin datos todavía. El número es el del diseño en Figma.
 @Serializable
 object AsiTeVeInternet // 04
 

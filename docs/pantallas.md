@@ -9,8 +9,8 @@ Las rutas están en `navigation/Rutas.kt`, una por pantalla, con los nombres del
 | Ruta | Pantalla | Estado | Botones que llevan a otra pantalla |
 | --- | --- | --- | --- |
 | `Inicio` | 01. Inicio | Cartón piedra | Descubre cómo funciona → 02 |
-| `Empezamos` | 02. Empezamos | **Real** (carpeta `feature/inicio`) | Analizar, en la tarjeta de un local → 03 |
-| `Analisis(localId)` | 03. Análisis | Cartón piedra, con el ID del local | Avisarme cuando termine → 04 |
+| `EmpezamosRoute` | 02. Empezamos | **Real** (carpeta `feature/empezamos`) | Analizar, en la tarjeta de un local → 03 |
+| `AnalisisRoute(analisisId)` | 03. Análisis | Cartón piedra, con el ID del análisis | Avisarme cuando termine → 04 |
 | `AsiTeVeInternet` | 04. Así te ve Internet | Cartón piedra | Todo correcto, seguir → 05 |
 | `Home` | 05. Home | Cartón piedra | 10, 11, 12, 15, 06, 14 y 13 |
 | `CrearContenido` | 06. Crear contenido | Cartón piedra | Siguiente → 07 |
@@ -30,15 +30,14 @@ Las pantallas de cartón piedra usan `ui/component/PantallaProvisional.kt`, que 
 
 Especificación: [02. Empezamos](https://github.com/Ju4nmaFd3z/Society/blob/main/docs/diseno/pantallas/02-empezamos.md).
 
-Carpeta: `feature/inicio/`, dentro de `app/src/main/java/com/alanturing/society/`.
-
-La carpeta se llama `feature/inicio` porque, al empezar, se pensó como la pantalla de inicio. En el Figma es la 02, y la 01 · Inicio es la bienvenida. Pendiente de renombrar a `feature/empezamos`.
+Carpeta: `feature/empezamos/`, dentro de `app/src/main/java/com/alanturing/society/`.
 
 | Archivo | Función |
 | --- | --- |
-| `ui/InicioScreen.kt` | La pantalla en Compose: buscador arriba y, debajo, el mensaje, la carga, el error o la lista de locales, según el estado. |
-| `ui/InicioViewModel.kt` | Guarda el texto del buscador y el estado actual, lanza la búsqueda y pide la página siguiente al llegar al final de la lista. |
-| `ui/InicioUiState.kt` | Los estados de la pantalla: inicial, cargando, vacío, error y con datos. |
+| `EmpezamosNavigation.kt` | La ruta `EmpezamosRoute` y su destino en el grafo de navegación. |
+| `ui/EmpezamosScreen.kt` | La pantalla en Compose: buscador y enlace «Añádelo a mano» arriba y, debajo, el mensaje, la carga, el error o la lista de locales, según el estado. |
+| `ui/EmpezamosViewModel.kt` | Guarda el texto del buscador y el estado actual, lanza la búsqueda y pide la página siguiente al llegar al final de la lista. |
+| `ui/EmpezamosUiState.kt` | Los estados de la pantalla: inicial, cargando, vacío, error y con datos. |
 | `ui/component/LocalCard.kt` | La tarjeta de un local, con el botón Analizar. |
 | `data/PlacesApi.kt` | Las llamadas a la búsqueda de locales de la API de Society, que consulta Google Places desde el backend. |
 | `data/PlacesRepository.kt` | Punto único de acceso a los datos para el ViewModel. |
@@ -48,7 +47,7 @@ La carpeta se llama `feature/inicio` porque, al empezar, se pensó como la panta
 
 Los datos de ejemplo están en `app/src/main/assets/locales.json`.
 
-Estado: la parte visual está hecha (`InicioScreen`, `InicioUiState` y `LocalCard`), sin funcionalidad real todavía. `InicioViewModel` solo guarda el estado inicial, y `PlacesRepository`, `PlacesApi` y `LocalesPagingSource` siguen siendo esqueleto. Al pulsar Analizar en una tarjeta se navega a Análisis.
+Estado: la parte visual está hecha (`EmpezamosScreen`, `EmpezamosUiState` y `LocalCard`), sin funcionalidad real todavía. `EmpezamosViewModel` solo guarda el estado inicial, y `PlacesRepository`, `PlacesApi` y `LocalesPagingSource` siguen siendo esqueleto. Al pulsar Analizar en una tarjeta se navega a Análisis.
 
 ## 03. Análisis
 
@@ -58,6 +57,7 @@ Carpeta: `feature/analisis/`, dentro de `app/src/main/java/com/alanturing/societ
 
 | Archivo | Función |
 | --- | --- |
+| `AnalisisNavigation.kt` | La ruta `AnalisisRoute(analisisId)` y su destino en el grafo de navegación. |
 | `ui/AnalisisScreen.kt` | La pantalla en Compose. Es el destino de la ruta desde Empezamos. |
 
-Estado: cartón piedra. `AnalisisScreen` recibe el ID del local y lo muestra como texto, con el botón que lleva a la pantalla 04. Quedan por definir el contenido y los estados de la pantalla, y con ellos el resto de archivos.
+Estado: cartón piedra. `AnalisisScreen` recibe el ID del análisis y lo muestra como texto, con el botón que lleva a la pantalla 04. Quedan por definir el contenido y los estados de la pantalla, y con ellos el resto de archivos.

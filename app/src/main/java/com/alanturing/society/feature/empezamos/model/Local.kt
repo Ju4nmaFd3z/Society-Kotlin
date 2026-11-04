@@ -1,4 +1,4 @@
-package com.alanturing.society.feature.inicio.model
+package com.alanturing.society.feature.empezamos.model
 
 // Data class con lo que pinta la tarjeta: identificador, nombre, media de reseñas, número de reseñas, calle y fotos
 // No tener anotaciones de red ni de serialización

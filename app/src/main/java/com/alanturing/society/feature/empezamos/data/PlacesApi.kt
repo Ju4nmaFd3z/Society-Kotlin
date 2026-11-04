@@ -1,4 +1,4 @@
-package com.alanturing.society.feature.inicio.data
+package com.alanturing.society.feature.empezamos.data
 
 /**
  * Llamadas a la API de Google Maps (Places) para buscar locales por texto.

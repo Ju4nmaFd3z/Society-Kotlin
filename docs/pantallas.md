@@ -35,9 +35,10 @@ Carpeta: `feature/empezamos/`, dentro de `app/src/main/java/com/alanturing/socie
 | Archivo | Función |
 | --- | --- |
 | `EmpezamosNavigation.kt` | La ruta `EmpezamosRoute` y su destino en el grafo de navegación. |
-| `ui/EmpezamosScreen.kt` | La pantalla en Compose: buscador y enlace «Añádelo a mano» arriba y, debajo, el mensaje, la carga, el error o la lista de locales, según el estado. |
+| `ui/EmpezamosScreen.kt` | La pantalla en Compose: `BuscadorLocales` y enlace «Añádelo a mano» arriba y, debajo, la lista de locales con una `LocalCard` por local. |
 | `ui/EmpezamosViewModel.kt` | Guarda el texto del buscador y el estado actual, lanza la búsqueda y pide la página siguiente al llegar al final de la lista. |
 | `ui/EmpezamosUiState.kt` | Los estados de la pantalla: inicial, cargando, vacío, error y con datos. |
+| `ui/component/BuscadorLocales.kt` | El campo de búsqueda con su botón Buscar. |
 | `ui/component/LocalCard.kt` | La tarjeta de un local, con el botón Analizar. |
 | `data/PlacesApi.kt` | Las llamadas a la búsqueda de locales de la API de Society, que consulta Google Places desde el backend. |
 | `data/PlacesRepository.kt` | Punto único de acceso a los datos para el ViewModel. |
@@ -47,7 +48,7 @@ Carpeta: `feature/empezamos/`, dentro de `app/src/main/java/com/alanturing/socie
 
 Los datos de ejemplo están en `app/src/main/assets/locales.json`.
 
-Estado: la parte visual está hecha (`EmpezamosScreen`, `EmpezamosUiState` y `LocalCard`), sin funcionalidad real todavía. `EmpezamosViewModel` solo guarda el estado inicial, y `PlacesRepository`, `PlacesApi` y `LocalesPagingSource` siguen siendo esqueleto. Al pulsar Analizar en una tarjeta se navega a Análisis.
+Estado: la parte visual está hecha (`EmpezamosScreen`, `BuscadorLocales` y `LocalCard`), sin funcionalidad real todavía: falta conectar la búsqueda con el ViewModel para que la lista se rellene, y mostrar los estados de carga, vacío y error. `EmpezamosViewModel` solo guarda el estado inicial, y `PlacesRepository`, `PlacesApi` y `LocalesPagingSource` siguen siendo esqueleto. Al pulsar Analizar en una tarjeta se navega a Análisis.
 
 ## 03. Análisis
 

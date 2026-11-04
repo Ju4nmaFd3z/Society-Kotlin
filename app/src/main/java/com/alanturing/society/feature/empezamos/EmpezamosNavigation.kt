@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.alanturing.society.feature.empezamos.ui.EmpezamosScreen
+import com.alanturing.society.feature.empezamos.ui.EmpezamosUiState
 import com.alanturing.society.feature.empezamos.ui.EmpezamosViewModel
 import kotlinx.serialization.Serializable
 
@@ -26,7 +27,8 @@ fun NavGraphBuilder.empezamosDestination(
         val viewModel: EmpezamosViewModel = hiltViewModel()
         val estado by viewModel.estado.collectAsState()
         EmpezamosScreen(
-            estado = estado,
+            locales = (estado as? EmpezamosUiState.ConDatos)?.locales.orEmpty(),
+            onBuscar = { /* TODO viewModel.buscar(it) */ },
             // TODO el ViewModel lanzará el análisis y devolverá su analisisId
             onAnalizar = onAnalisisLanzado,
             onAltaManual = onAltaManual,

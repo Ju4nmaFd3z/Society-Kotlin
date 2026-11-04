@@ -4,6 +4,8 @@ App móvil Android de Society, escrita en Kotlin con Jetpack Compose.
 
 Forma parte del proyecto Society. La documentación de producto, diseño y marca está en el repositorio general: [Society](https://github.com/Ju4nmaFd3z/Society).
 
+La app no llama directamente a servicios externos: consume la API única de Society, que vive en [Society-TypeScript](https://github.com/Ju4nmaFd3z/Society-TypeScript). Ver la [arquitectura](https://github.com/Ju4nmaFd3z/Society/blob/main/docs/arquitectura/README.md).
+
 ## Requisitos
 
 - Android Studio compatible con la versión del plugin de Android indicada en `gradle/libs.versions.toml`.
@@ -28,22 +30,25 @@ El código se organiza por pantalla o funcionalidad, no por tipo de archivo. La 
 
 - Proyecto Android base con Compose y Material 3.
 - Estructura de carpetas por funcionalidad.
-- Parte visual de la pantalla Inicio (buscador, estados y lista de tarjetas), sin funcionalidad real.
-- Esqueleto de la capa de datos de Inicio (`InicioViewModel`, `PlacesRepository`, `PlacesApi` y `LocalesPagingSource`), con cada archivo descrito pero sin implementar.
-- Primera ruta definida (Inicio → Análisis) y esqueleto de la pantalla Análisis.
+- Tema de la identidad de marca: colores y modo claro, sin color dinámico.
+- Permiso de Internet en el manifiesto. Dependencias añadidas: Coil, Navigation Compose, kotlinx.serialization e Hilt.
+- Parte visual de la pantalla 02 · Empezamos (buscador, estados y lista de tarjetas), sin funcionalidad real. Su carpeta se llama `feature/inicio`.
+- Esqueleto de la capa de datos de esa pantalla (`PlacesRepository`, `PlacesApi` y `LocalesPagingSource`), con cada archivo descrito pero sin implementar.
+- Navegación montada desde `MainActivity`, con una ruta por pantalla del diseño (15 en total) y los enlaces del flujo de Figma.
+- El resto de pantallas, de cartón piedra (`PantallaProvisional`).
 
 **Pendiente**
 
-- Añadir el permiso de acceso a Internet en el manifiesto y las dependencias previstas que faltan (Retrofit, kotlinx.serialization y Paging 3). Coil ya está añadida.
-- Adaptar el tema a la identidad de marca. Hoy mantiene los colores y el modo oscuro por defecto de la plantilla, y el diseño pide modo claro.
-- Sustituir la pantalla de ejemplo de `MainActivity` por la pantalla Inicio.
-- Dar funcionalidad a la pantalla Inicio: buscador, lectura de los datos y carga por páginas.
-- Añadir Navigation Compose y montar el grafo de navegación en `MainActivity`.
-- Definir el contenido de la pantalla Análisis y completar su esqueleto.
+- Dar funcionalidad a la pantalla 02 · Empezamos: buscador, lectura de los datos y carga por páginas, contra la API de Society. Faltan las dependencias Retrofit y Paging 3.
+- Renombrar la carpeta `feature/inicio` a `feature/empezamos`, para que coincida con el Figma, y crear la pantalla 01 · Inicio de verdad.
+- Aplicar las fuentes de la marca en `Type.kt`, que hoy mantiene la tipografía de la plantilla.
+- Implementar las pantallas de cartón piedra según el diseño de Figma.
 
 ## Claves de API
 
-Las claves, como la de Google Maps, no se suben al repositorio. `local.properties` está excluido por `.gitignore`.
+La app no guarda claves de servicios externos. La de Google Maps vive solo en el backend, que es quien consulta Google Places (decisión D-05 de la arquitectura).
+
+La configuración local, como la URL de la API, va en `local.properties`, que está excluido por `.gitignore` y no se sube al repositorio.
 
 ## Convenciones
 

@@ -1,20 +1,33 @@
 package com.alanturing.society.feature.empezamos
 
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.alanturing.society.feature.empezamos.ui.EmpezamosScreen
+import com.alanturing.society.feature.empezamos.ui.EmpezamosViewModel
+import com.alanturing.society.navigation.EmpezamosRoute
 
-data object EmpezamosNavigation {
-    fun NavController.navigateToEmpezamos() = navigate(EmpezamosRoute)
+// Lo llama quien quiera navegar aquí
+fun NavController.navigateToEmpezamos() = navigate(EmpezamosRoute)
 
-    fun NavGraphBuilder.empezamosDestination(
-        onAnalisisLanzado: (analisisId: String) -> Unit,
-        onAltaManual: () -> Unit,
-    ) {
-        composable<EmpezamosRoute> {
-            EmpezamosScreen(
-                onAnalisisLanzado = onAnalisisLanzado,
-                onAltaManual = onAltaManual,
-            )
-        }
+// Lo que se muestra cuando la ruta está activa
+fun NavGraphBuilder.empezamosDestination(
+    onAnalisisLanzado: (analisisId: String) -> Unit,
+    onAltaManual: () -> Unit,
+) {
+    composable<EmpezamosRoute> {
+        val viewModel: EmpezamosViewModel = hiltViewModel()
+        val estado by viewModel.estado.collectAsState() // cada vez que el viweModel cambia el estado, la pantalla se vuelve a dibujar
+        EmpezamosScreen(
+            estado = estado,
+            onBuscar = viewModel::buscar,
+            onReintentar = viewModel::reintentar,
+            // TODO el ViewModel lanzará el análisis y devolverá su analisisId
+            onAnalizar = onAnalisisLanzado,
+            onAltaManual = onAltaManual,
+        )
+    }
 }

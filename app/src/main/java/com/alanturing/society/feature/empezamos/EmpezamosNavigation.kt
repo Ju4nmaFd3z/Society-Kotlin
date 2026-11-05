@@ -8,11 +8,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.alanturing.society.feature.empezamos.ui.EmpezamosScreen
 import com.alanturing.society.feature.empezamos.ui.EmpezamosViewModel
-import kotlinx.serialization.Serializable
-
-// Ruta de S02 · Busca tu local. No recibe datos
-@Serializable
-data object EmpezamosRoute
+import com.alanturing.society.navigation.EmpezamosRoute
 
 // Lo llama quien quiera navegar aquí
 fun NavController.navigateToEmpezamos() = navigate(EmpezamosRoute)
@@ -24,10 +20,7 @@ fun NavGraphBuilder.empezamosDestination(
 ) {
     composable<EmpezamosRoute> {
         val viewModel: EmpezamosViewModel = hiltViewModel()
-        // collectAsState escucha el StateFlow del ViewModel y lo convierte en un estado de Compose:
-        // cada vez que el ViewModel cambia el estado, la pantalla se vuelve a dibujar sola.
-        // by permite usar estado directamente, sin escribir estado.value.
-        val estado by viewModel.estado.collectAsState()
+        val estado by viewModel.estado.collectAsState() // cada vez que el viweModel cambia el estado, la pantalla se vuelve a dibujar
         EmpezamosScreen(
             estado = estado,
             onBuscar = viewModel::buscar,

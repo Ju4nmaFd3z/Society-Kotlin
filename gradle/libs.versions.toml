@@ -1,4 +1,6 @@
 [versions]
+# Bajada de 9.4.1 a 9.2.1 porque el Android Studio de los ordenadores del instituto no admite 9.4.1.
+# No es por Hilt ni KSP: la app compila igual con las dos versiones. Subirla cuando se actualice el de clase.
 agp = "9.2.1"
 coilCompose = "2.7.0"
 coreKtx = "1.10.1"

@@ -4,27 +4,38 @@ Implementación de cada pantalla en la app Android. El diseño, el contenido y l
 
 ## Navegación
 
-Las rutas están en `navigation/Rutas.kt`, una por pantalla, con los nombres del [flujo de navegación](https://github.com/Ju4nmaFd3z/Society/blob/main/docs/diseno/flujo-de-navegacion/README.md). El grafo está en `navigation/SocietyNavHost.kt` y se monta desde `MainActivity`. La numeración y los nombres son los del diseño en Figma (pestaña v3 · Cristal líquido), y la app arranca en 01 · Inicio.
+Todas las rutas están en `navigation/Rutas.kt`, una por pantalla, con los datos que recibe cada una según el diagrama de flujo de la app. El grafo está en `navigation/SocietyNavHost.kt` y se monta desde `MainActivity`. La app arranca en 01 Bienvenida.
 
-| Ruta | Pantalla | Estado | Botones que llevan a otra pantalla |
-| --- | --- | --- | --- |
-| `Inicio` | 01. Inicio | Cartón piedra | Descubre cómo funciona → 02 |
-| `EmpezamosRoute` | 02. Empezamos | **Real** (carpeta `feature/empezamos`) | Analizar, en la tarjeta de un local → 03 |
-| `AnalisisRoute(analisisId)` | 03. Análisis | Cartón piedra, con el ID del análisis | Avisarme cuando termine → 04 |
-| `AsiTeVeInternet` | 04. Así te ve Internet | Cartón piedra | Todo correcto, seguir → 05 |
-| `Home` | 05. Home | Cartón piedra | 10, 11, 12, 15, 06, 14 y 13 |
-| `CrearContenido` | 06. Crear contenido | Cartón piedra | Siguiente → 07 |
-| `EleccionEstilo` | 07. Elección de estilo | Cartón piedra | Siguiente → 08 |
-| `FotosLocal` | 08. Fotos del local | Cartón piedra | Siguiente → 09 |
-| `ContenidoCreado` | 09. Contenido creado | Cartón piedra | — |
-| `Notificaciones` | 10. Notificaciones | Cartón piedra | — |
-| `CampanaPropuesta` | 11. Campaña propuesta | Cartón piedra | — |
-| `CampanaMedida` | 12. Campaña a medida | Cartón piedra | — |
-| `Perfil` | 13. Perfil | Cartón piedra | — |
-| `Estadisticas` | 14. Estadísticas | Cartón piedra | — |
-| `Calendario` | 15. Calendario | Cartón piedra | — |
+| Ruta | Pantalla | Carpeta | Recibe | Botones que llevan a otra pantalla |
+| --- | --- | --- | --- | --- |
+| `BienvenidaRoute` | 01 Bienvenida | `bienvenida` | Nada | Descubre cómo funciona → 01A |
+| `AccesoRoute` | 01A Acceso | `acceso` | Nada | Entrar → 02 |
+| `EmpezamosRoute` | 02 Busca tu local | `empezamos` | Nada | Analizar → 03 · Añádelo a mano → 02M |
+| `AltaManualRoute` | 02M Alta manual | `altamanual` | Nada | Guardar y analizar → 03 |
+| `AnalisisRoute` | 03 Análisis | `analisis` | `analisisId` | Ver resultado → 04 · Cancelar → vuelve a 02 |
+| `AsiTeVeInternetRoute` | 04 Así te ve internet | `asiteveinternet` | `restauranteId`, `modoEdicion` | Todo correcto, seguir → 05 |
+| `HomeRoute` | 05 Home | `home` | Nada | 06, 11, 09, 12, 15 y 13 |
+| `CrearContenidoGraph` | Grafo de 06 a 08 | `crearcontenidograph` | `campanaId`, opcional | Empieza en 06 |
+| `CrearContenidoRoute` | 06 Crear contenido | `crearcontenidograph` | Nada | Siguiente → 07 |
+| `EleccionEstiloRoute` | 07 Elección de estilo | `crearcontenidograph` | Nada | Siguiente → 08 |
+| `FotosLocalRoute` | 08 Fotos del local | `crearcontenidograph` | Nada | Generar contenido → 09 |
+| `ContenidoCreadoRoute` | 09 Contenido creado | `contenidocreado` | `piezaId` | Descripción y hashtags → 09P |
+| `PublicarContenidoRoute` | 09P Publicar contenido | `publicarcontenido` | `piezaId` | Publicar en Instagram → 05 |
+| `CampanaPropuestaRoute` | 11 Campaña propuesta | `campanapropuesta` | `oportunidadId` | Crear campaña → 06 |
+| `CampanaMedidaRoute` | 12 Campaña a medida (P1) | `campanamedida` | Nada | Crear plan de campaña → 11 |
+| `PerfilRoute` | 13 Perfil | `perfil` | Nada | Datos del local → 04 en modo edición · Cerrar sesión → 01 |
+| `CalendarioRoute` | 15 Calendario (P1) | `calendario` | Nada | Ver pieza → 09 |
 
-Las pantallas de cartón piedra usan `ui/component/PantallaProvisional.kt`, que muestra su número, su nombre y un botón por cada pantalla a la que lleva. Los enlaces de 06 a 09 siguen el orden del selector de pasos del diseño (Idea, Estética, Local). En 02, la lupa del buscador lleva a Análisis con el texto escrito como ID: es provisional.
+10 Notificaciones y 14 Estadísticas quedan fuera del MVP y no tienen ruta.
+
+Cada pantalla sigue el mismo patrón, dentro de su carpeta de `feature/`:
+
+- `XNavigation.kt`: `navigateToX()`, que navega a la ruta con sus datos, y `xDestination()`, que saca los datos de la ruta con `toRoute()` y muestra la pantalla. La pantalla no conoce el `navController`: solo avisa de que se ha pulsado un botón y es `SocietyNavHost` quien decide a dónde va.
+- `ui/XScreen.kt`: la pantalla. Salvo 02, de momento es provisional: el título, los datos que recibe y los botones que llevan a la siguiente.
+
+Los pasos de 06 a 08 van dentro del grafo anidado `CrearContenidoGraph` (`crearcontenidograph/CrearContenidoNavigation.kt`), para que más adelante compartan un ViewModel con el borrador de la pieza.
+
+Lo simulado está marcado con un TODO en el código. Los IDs que todavía no devuelve la API se pasan inventados (`analisis_demo`, `restaurante_demo`, `pieza_demo`, `oportunidad_demo` y `campana_demo`). También falta elegir el destino inicial según la sesión y el estado del alta, y vaciar la pila al terminar el alta y al cerrar sesión.
 
 ## 02. Empezamos
 
@@ -34,7 +45,7 @@ Carpeta: `feature/empezamos/`, dentro de `app/src/main/java/com/alanturing/socie
 
 | Archivo | Función |
 | --- | --- |
-| `EmpezamosNavigation.kt` | La ruta `EmpezamosRoute` y su destino en el grafo de navegación. |
+| `EmpezamosNavigation.kt` | El destino de la ruta `EmpezamosRoute` en el grafo de navegación. |
 | `ui/EmpezamosScreen.kt` | La pantalla en Compose: `BuscadorLocales` y enlace «Añádelo a mano» arriba y, debajo, según el estado, el mensaje, la carga, el error con Reintentar o la lista de locales, con una `LocalCard` por local. |
 | `ui/EmpezamosViewModel.kt` | Lanza la búsqueda en `PlacesRepository`, guarda el estado actual y permite reintentar la última búsqueda tras un error. |
 | `ui/EmpezamosUiState.kt` | Los estados de la pantalla: inicial, cargando, vacío, error y con datos. |
@@ -58,7 +69,7 @@ Carpeta: `feature/analisis/`, dentro de `app/src/main/java/com/alanturing/societ
 
 | Archivo | Función |
 | --- | --- |
-| `AnalisisNavigation.kt` | La ruta `AnalisisRoute(analisisId)` y su destino en el grafo de navegación. |
-| `ui/AnalisisScreen.kt` | La pantalla en Compose. Es el destino de la ruta desde Empezamos. |
+| `AnalisisNavigation.kt` | El destino de la ruta `AnalisisRoute(analisisId)` en el grafo de navegación. |
+| `ui/AnalisisScreen.kt` | La pantalla en Compose. Es el destino de la ruta desde 02 y 02M. |
 
-Estado: cartón piedra. `AnalisisScreen` recibe el ID del análisis y lo muestra como texto, con el botón que lleva a la pantalla 04. Quedan por definir el contenido y los estados de la pantalla, y con ellos el resto de archivos.
+Estado: provisional. `AnalisisScreen` recibe el ID del análisis y lo muestra como texto, con el botón que lleva a la pantalla 04 y el de cancelar, que vuelve a 02. Quedan por definir el contenido y los estados de la pantalla, y con ellos el resto de archivos.

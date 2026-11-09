@@ -34,15 +34,15 @@ El código se organiza por pantalla o funcionalidad, no por tipo de archivo. La 
 - Permiso de Internet en el manifiesto. Dependencias añadidas: Coil, Navigation Compose, kotlinx.serialization e Hilt.
 - Pantalla 02 · Empezamos (`feature/empezamos`) funcional con datos de ejemplo: busca en `assets/locales.json`, muestra sus estados y lleva a 03 · Análisis.
 - Esqueleto de `PlacesApi` y `LocalesPagingSource`, para cuando la búsqueda use la API de Society.
-- Navegación montada desde `MainActivity`, con una ruta por pantalla del diseño (15 en total) y los enlaces del flujo de Figma.
-- El resto de pantallas, de cartón piedra (`PantallaProvisional`).
+- Navegación de todas las pantallas del MVP montada desde `MainActivity`: las rutas, con los datos que recibe cada pantalla, están en `navigation/Rutas.kt`, y los enlaces siguen el diagrama de flujo de la app.
+- El resto de pantallas, provisionales: cada una muestra su título y los botones que llevan a la siguiente.
 
 **Pendiente**
 
 - Pasar la búsqueda de 02 · Empezamos a la API de Society, con carga por páginas. Faltan las dependencias Retrofit y Paging 3.
-- Crear la pantalla 01 · Inicio (bienvenida) de verdad.
+- Cambiar los IDs inventados de la navegación por los que devuelva la API, elegir el destino inicial según la sesión y vaciar la pila al terminar el alta y al cerrar sesión.
 - Aplicar las fuentes de la marca en `Type.kt`, que hoy mantiene la tipografía de la plantilla.
-- Implementar las pantallas de cartón piedra según el diseño de Figma.
+- Implementar las pantallas provisionales según el diseño de Figma.
 
 ## Claves de API
 

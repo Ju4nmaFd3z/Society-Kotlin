@@ -31,15 +31,15 @@ El código se organiza por pantalla o funcionalidad, no por tipo de archivo. La 
 - Proyecto Android base con Compose y Material 3.
 - Estructura de carpetas por funcionalidad.
 - Tema de la identidad de marca: colores y modo claro, sin color dinámico.
-- Permiso de Internet en el manifiesto. Dependencias añadidas: Coil, Navigation Compose, kotlinx.serialization e Hilt.
+- Permiso de Internet en el manifiesto. Dependencias añadidas: Coil, Navigation Compose, kotlinx.serialization, Hilt y Retrofit con Gson.
 - Pantalla 02 · Empezamos (`feature/empezamos`) funcional con datos de ejemplo: busca en `assets/locales.json`, muestra sus estados y lleva a 03 · Análisis.
-- Esqueleto de `PlacesApi` y `LocalesPagingSource`, para cuando la búsqueda use la API de Society.
+- Capa de red con Retrofit, Gson y Hilt: `SocietyApi`, un DataSource y un repositorio que llaman a `GET /salud` al arrancar y escriben el resultado en el log. La URL de la API sale de `API_BASE`.
 - Navegación de todas las pantallas del MVP montada desde `MainActivity`: las rutas, con los datos que recibe cada pantalla, están en `navigation/Rutas.kt`, y los enlaces siguen el diagrama de flujo de la app.
 - El resto de pantallas, provisionales: cada una muestra su título y los botones que llevan a la siguiente.
 
 **Pendiente**
 
-- Pasar la búsqueda de 02 · Empezamos a la API de Society, con carga por páginas. Faltan las dependencias Retrofit y Paging 3.
+- Pasar la búsqueda de 02 · Empezamos a la API de Society, que hoy lee `assets/locales.json`.
 - Cambiar los IDs inventados de la navegación por los que devuelva la API, elegir el destino inicial según la sesión y vaciar la pila al terminar el alta y al cerrar sesión.
 - Aplicar las fuentes de la marca en `Type.kt`, que hoy mantiene la tipografía de la plantilla.
 - Implementar las pantallas provisionales según el diseño de Figma.
@@ -48,7 +48,7 @@ El código se organiza por pantalla o funcionalidad, no por tipo de archivo. La 
 
 La app no guarda claves de servicios externos. La de Google Maps vive solo en el backend, que es quien consulta Google Places (decisión D-05 de la arquitectura).
 
-La configuración local, como la URL de la API, va en `local.properties`, que está excluido por `.gitignore` y no se sube al repositorio.
+La configuración local, como la URL de la API (`API_BASE`), va en `local.properties`, que está excluido por `.gitignore` y no se sube al repositorio. Los detalles están en [Estructura del proyecto](docs/estructura-del-proyecto.md).
 
 ## Convenciones
 

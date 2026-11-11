@@ -31,6 +31,7 @@ El código se organiza por pantalla o funcionalidad, no por tipo de archivo. La 
 - Proyecto Android base con Compose y Material 3.
 - Estructura de carpetas por funcionalidad.
 - Tema de la identidad de marca: colores y modo claro, sin color dinámico.
+- Tipografía de la marca: DynaPuff para los títulos y Nunito para el resto, aplicadas en `ui/theme/Type.kt`.
 - Permiso de Internet en el manifiesto. Dependencias añadidas: Coil, Navigation Compose, kotlinx.serialization, Hilt y Retrofit con Gson.
 - Pantalla 02 · Empezamos (`feature/empezamos`) funcional con datos de ejemplo: busca en `assets/locales.json`, muestra sus estados y lleva a 03 · Análisis.
 - Capa de red con Retrofit, Gson y Hilt: `SocietyApi`, un DataSource y un repositorio que llaman a `GET /salud` al arrancar y escriben el resultado en el log. La URL de la API sale de `API_BASE`.
@@ -41,7 +42,6 @@ El código se organiza por pantalla o funcionalidad, no por tipo de archivo. La 
 
 - Pasar la búsqueda de 02 · Empezamos a la API de Society, que hoy lee `assets/locales.json`.
 - Cambiar los IDs inventados de la navegación por los que devuelva la API, elegir el destino inicial según la sesión y vaciar la pila al terminar el alta y al cerrar sesión.
-- Aplicar las fuentes de la marca en `Type.kt`, que hoy mantiene la tipografía de la plantilla.
 - Implementar las pantallas provisionales según el diseño de Figma.
 
 ## Claves de API

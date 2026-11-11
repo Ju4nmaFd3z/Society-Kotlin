@@ -51,9 +51,7 @@ Carpeta: `feature/empezamos/`, dentro de `app/src/main/java/com/alanturing/socie
 | `ui/EmpezamosUiState.kt` | Los estados de la pantalla: inicial, cargando, vacío, error y con datos. |
 | `ui/component/BuscadorLocales.kt` | El campo de búsqueda con su botón Buscar. |
 | `ui/component/LocalCard.kt` | La tarjeta de un local, con el botón Analizar. |
-| `data/PlacesApi.kt` | Las llamadas a la búsqueda de locales de la API de Society, que consulta Google Places desde el backend. |
 | `data/PlacesRepository.kt` | Punto único de acceso a los datos para el ViewModel. De momento lee `assets/locales.json` y filtra por nombre o dirección. |
-| `data/LocalesPagingSource.kt` | El origen de datos paginado de la lista. |
 | `data/dto/PlacesDto.kt` | La respuesta tal y como llega en el JSON, con la misma forma que la de Google Places. |
 | `model/Local.kt` | El local tal como lo usa la interfaz. |
 

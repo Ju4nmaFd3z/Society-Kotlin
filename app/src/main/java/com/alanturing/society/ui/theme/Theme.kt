@@ -4,21 +4,30 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
-// Society solo tiene modo claro, según la identidad de marca
 // Hemos quitado el color dinámico, para que la app use siempre su paleta y no la del fondo de pantalla
 private val EsquemaSociety = lightColorScheme(
-    primary = AzulSociety,
+    primary = AzulInterfaz,
     onPrimary = Blanco,
-    secondary = AmarilloSociety,
-    onSecondary = Tinta,
-    background = Papel,
-    onBackground = Tinta,
-    surface = Papel,
-    onSurface = Tinta,
+    secondary = AmarilloInterfaz,
+    onSecondary = TintaInterfaz,
+    tertiary = Positivo,
+    onTertiary = Blanco,
+    error = Alerta,
+    onError = Blanco,
+    background = PapelInterfaz,
+    onBackground = TintaInterfaz,
+    surface = Blanco,
+    onSurface = TintaInterfaz,
     surfaceVariant = Piedra,
-    onSurfaceVariant = GrisTexto,
-    outline = GrisTexto,
-    outlineVariant = Piedra
+    onSurfaceVariant = TextoSecundario,
+    outline = TextoTerciario,
+    outlineVariant = Piedra,
+
+    surfaceContainerLowest = Blanco,
+    surfaceContainerLow = Blanco,
+    surfaceContainer = Blanco,
+    surfaceContainerHigh = Blanco,
+    surfaceContainerHighest = Blanco
 )
 
 @Composable

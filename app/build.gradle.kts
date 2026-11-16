@@ -78,4 +78,5 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.retrofit) // Llamadas a la API
     implementation(libs.retrofit.converter.gson) // JSON a clases de Kotlin con Gson
+    implementation(libs.androidx.datastore.preferences) // DataStore: guarda los tokens
 }

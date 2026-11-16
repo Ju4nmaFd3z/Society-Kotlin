@@ -1,5 +1,6 @@
 package com.alanturing.society.core.network
 
+import com.alanturing.society.feature.acceso.data.remote.SocietyAuthApi
 import retrofit2.Response
 import retrofit2.http.GET
 
@@ -8,7 +9,7 @@ import retrofit2.http.GET
  * así el DataSource decide qué hacer con un error HTTP en vez de que salte una excepción.
  * Las rutas no llevan barra inicial: así Retrofit las suma a API_BASE (/api/v1/).
  */
-interface SocietyApi {
+interface SocietyApi: SocietyAuthApi {
 
     // Comprueba que la API responde
     @GET("salud")

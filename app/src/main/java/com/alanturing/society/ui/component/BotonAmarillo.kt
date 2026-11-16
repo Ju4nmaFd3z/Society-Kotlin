@@ -12,7 +12,14 @@ import androidx.compose.ui.unit.dp
 import com.alanturing.society.ui.theme.AmarilloInterfaz
 import com.alanturing.society.ui.theme.TintaInterfaz
 
-//Boton principal, queda pendiente si se renombra a BotonPrincipal
+/**
+ * Botón amarillo de Society: avisa con [onClick] y la pantalla decide qué ocurre.
+ *
+ * @param texto    texto que muestra el botón
+ * @param onClick  qué hacer al pulsarlo
+ * @param modifier para colocarlo (ancho, padding, posición...) desde la pantalla que lo usa
+ * @param enabled  si es false el botón se ve apagado y no responde a la pulsación
+ */
 @Composable
 fun BotonCristal(
     texto: String,

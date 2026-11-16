@@ -15,3 +15,5 @@ object Cristal {
     val Estandar = EstiloCristal(Color.White.copy(0.60f), Color.White.copy(0.42f), 0.10f, 0.20f, 0.13f)
     val Denso = EstiloCristal(Color.White.copy(0.78f), Color.White.copy(0.66f), 0.10f, 0.20f, 0.13f)
 }
+
+// mirar dev.chrisbanes.haze para cristal con blur

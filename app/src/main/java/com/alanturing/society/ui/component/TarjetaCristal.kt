@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.alanturing.society.ui.theme.CristalAbajo
 import com.alanturing.society.ui.theme.CristalArriba
 
-// Superficie de cristal del Figma.
+
 
 @Composable
 fun TarjetaCristal(
@@ -27,7 +27,8 @@ fun TarjetaCristal(
     val forma = RoundedCornerShape(28.dp)
     Column(
         modifier = modifier
-            .shadow(12.dp, forma, clip = false)
+            //Crea un cuadrado blanco detras, mirar como arreglarlo
+            //.shadow(12.dp, forma, clip = false)
             .clip(forma)
             .background(Brush.verticalGradient(listOf(CristalArriba, CristalAbajo)))
             .border(1.25.dp, Color.White.copy(alpha = 0.9f), forma)

@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.alanturing.society.ui.theme.AmarilloInterfaz
 import com.alanturing.society.ui.theme.TintaInterfaz
 
-
+//Boton principal, queda pendiente si se renombra a BotonPrincipal
 @Composable
 fun BotonCristal(
     texto: String,

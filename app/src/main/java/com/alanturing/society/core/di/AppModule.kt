@@ -9,6 +9,10 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
+import com.alanturing.society.feature.acceso.data.remote.AuthDataSource
+import com.alanturing.society.feature.acceso.data.remote.AuthRemoteDataSource
+import com.alanturing.society.feature.acceso.data.repository.AuthRepository
+import com.alanturing.society.feature.acceso.data.repository.AuthRepositoryImpl
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -22,4 +26,12 @@ interface AppModule {
     @Binds
     @Singleton
     fun bindsSaludRepository(repo: SaludRepositoryImpl): SaludRepository
+
+    @Binds
+    @Singleton
+    fun bindsAuthDataSource(ds: AuthRemoteDataSource): AuthDataSource
+
+    @Binds
+    @Singleton
+    fun bindsAuthRepository(repo: AuthRepositoryImpl): AuthRepository
 }

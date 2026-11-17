@@ -1,7 +1,8 @@
 package com.alanturing.society.feature.acceso.data.repository
 
-interface AuthRepository {
+import com.alanturing.society.feature.acceso.model.ResultadoAcceso
 
-    suspend fun login(email:String,password:String):Boolean
-    suspend fun registro(email: String, password: String): ResultadoAcceso
+interface AuthRepository {
+    suspend fun registro(email: String, contrasena: String): ResultadoAcceso
+    suspend fun acceso(email: String, contrasena: String): ResultadoAcceso
 }

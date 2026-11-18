@@ -4,6 +4,8 @@ import com.alanturing.society.core.network.SaludDataSource
 import com.alanturing.society.core.network.SaludRemoteDataSource
 import com.alanturing.society.core.network.SaludRepository
 import com.alanturing.society.core.network.SaludRepositoryImpl
+import com.alanturing.society.feature.acceso.data.local.SesionDataStore
+import com.alanturing.society.feature.acceso.data.local.SesionLocalDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -34,4 +36,8 @@ interface AppModule {
     @Binds
     @Singleton
     fun bindsAuthRepository(repo: AuthRepositoryImpl): AuthRepository
+
+    @Binds
+    @Singleton
+    fun bindsSesionLocalDataSource(ds: SesionDataStore): SesionLocalDataSource
 }

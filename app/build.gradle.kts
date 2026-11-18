@@ -1,5 +1,3 @@
-import java.util.Properties
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -7,12 +5,6 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp) // Sobre hilt
     alias(libs.plugins.hilt) // Dagger sobre hilt
-}
-
-// Lee local.properties, que no se sube al repositorio y es donde cada uno puede cambiar la URL de la API
-val propiedadesLocales = Properties().apply {
-    val archivo = rootProject.file("local.properties")
-    if (archivo.exists()) archivo.inputStream().use { load(it) }
 }
 
 android {
@@ -29,11 +21,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        // URL base de la API. Si local.properties no define API_BASE, usa la API desplegada en Vercel.
-        // Termina en barra para que Retrofit sume bien las rutas.
-        val apiBase = propiedadesLocales.getProperty("API_BASE", "https://society-api-xi.vercel.app/api/v1/")
-        buildConfigField("String", "API_BASE", "\"$apiBase\"")
     }
 
     buildTypes {
@@ -50,7 +37,6 @@ android {
     }
     buildFeatures {
         compose = true
-        buildConfig = true // Genera BuildConfig, donde está API_BASE
     }
 }
 

@@ -5,7 +5,7 @@ data class Sesion(
     val accessToken: String,
     val refreshToken: String,
     val expiraEn: Long // segundos
-    )
+)
 
 // Errores. Cada valor corresponde a un código de error de la API
 enum class ErrorAcceso {
@@ -15,10 +15,10 @@ enum class ErrorAcceso {
     DEMASIADOS_INTENTOS,      // 429 LIMITE_ALCANZADO
     SIN_CONEXION,             // no se llegó al servidor
     SERVIDOR                  // 503, 500 o respuesta ilegible
-    }
+}
 
 // Resultado de registro o login
 sealed interface ResultadoAcceso {
     data object Correcto : ResultadoAcceso
     data class Fallo(val error: ErrorAcceso) : ResultadoAcceso
-    }
+}

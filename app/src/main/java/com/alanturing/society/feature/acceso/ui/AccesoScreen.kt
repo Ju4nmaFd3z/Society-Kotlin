@@ -44,7 +44,9 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.alanturing.society.R
+import com.alanturing.society.feature.acceso.model.ErrorAcceso
 import com.alanturing.society.ui.component.BotonVolver
+import com.alanturing.society.ui.theme.Alerta
 import com.alanturing.society.ui.theme.AmarilloInterfaz
 import com.alanturing.society.ui.theme.AzulInterfaz
 import com.alanturing.society.ui.theme.DynaPuff
@@ -60,15 +62,17 @@ enum class ModoAcceso { CREAR_CUENTA, INICIAR_SESION }
 
 @Composable
 fun AccesoScreen(
-    onSesionIniciada: () -> Unit,
+    estado: AccesoUiState,
+    onContinuar: (creando: Boolean, email: String, password: String)-> Unit,
     modifier: Modifier = Modifier
 ) {
-    // Modo activo. mutableStateOf hace que Compose redibuje la pantalla cuando cambia y rememberSaveable conserva el valor.
+    // Compose redibuja la pantalla al cambiar el estado. conserva el valor al rotar el móvil.
     var modo by rememberSaveable { mutableStateOf(ModoAcceso.CREAR_CUENTA) }
+
     // Guarda true si estamos en Crear cuenta
     val creando = modo == ModoAcceso.CREAR_CUENTA
 
-    // Casilla de términos: empieza desmarcada
+    // Casilla de términos
     var aceptaTerminos by rememberSaveable { mutableStateOf(false) }
 
     // Campos de login/register
@@ -128,10 +132,26 @@ fun AccesoScreen(
                     onCambio = { aceptaTerminos = it }
                 )
 
+                val enviando=estado== AccesoUiState.Enviando
+
                 BotonContinuar(
-                    habilitado = esValido,
-                    onClick = onSesionIniciada
+                    habilitado = esValido && !enviando,
+                    onClick = {
+                        onContinuar(creando,email,password)
+                    }
                 )
+
+                if(estado is AccesoUiState.Error){
+                    Text(
+                        text = mensajeDe(estado.error),
+                        style = TextStyle(
+                            fontFamily = Nunito,
+                            fontWeight = FontWeight.ExtraBold,
+                            fontSize = 13.sp,
+                            color = Alerta
+                        )
+                    )
+                }
 
                 // Texto olvidaste tu contraseña - Solo activo en iniciar sesion.
                 if (!creando) {
@@ -184,7 +204,7 @@ fun AccesoScreen(
 }
 
 
-// Píldora de cristal con las dos pestañas. Recibe el modo activo y avisa con onModo cuando el usuario pulsa una pestaña
+// Conteneror con las dos pestañas. Recibe el modo activo y avisa con onModo cuando el usuario pulsa una pestaña
 @Composable
 private fun SelectorAcceso(modo: ModoAcceso, onModo: (ModoAcceso) -> Unit) {
     val forma = RoundedCornerShape(24.dp)
@@ -238,7 +258,7 @@ private fun Pestana(texto: String, activa: Boolean, onClick: () -> Unit, modifie
     }
 }
 
-// Campo mail/contraseña - Recibe el valor y avisa con onValor cada vez que el usuario cambia el texto
+// Campos de texto - Recibe el valor y avisa con onValor cada vez que el usuario cambia el texto
 @Composable
 private fun Campo(
     etiqueta: String,
@@ -311,7 +331,7 @@ private fun Campo(
     }
 }
 
-// Casilla de términos - recibe si está marcada y avisa con onCambio
+// Casilla de términos y condicions - recibe si está marcada y avisa con onCambio
 @Composable
 private fun Terminos(marcada: Boolean, onCambio: (Boolean) -> Unit) {
     Row(
@@ -350,7 +370,7 @@ private fun Terminos(marcada: Boolean, onCambio: (Boolean) -> Unit) {
     }
 }
 
-// Botón amarillo. Si habilitado es false se ve atenuado, sin sombra, y no responde a pulsaciones
+//Boton amarillo
 @Composable
 private fun BotonContinuar(habilitado: Boolean, onClick: () -> Unit) {
     val forma = RoundedCornerShape(27.dp)
@@ -359,7 +379,7 @@ private fun BotonContinuar(habilitado: Boolean, onClick: () -> Unit) {
             .fillMaxWidth()
             .height(54.dp)
 
-            // La sombra amarilla solo aparece cuando el botón está activo
+            //Sombra amarilla solo aparece si el botón esta activo
             .then(
                 if (habilitado) Modifier.shadow(12.dp, forma, ambientColor = Color(0xFFBF8500), spotColor = Color(0xFFBF8500))
                 else Modifier
@@ -382,10 +402,23 @@ private fun BotonContinuar(habilitado: Boolean, onClick: () -> Unit) {
     }
 }
 
+private fun mensajeDe(error: ErrorAcceso): String = when(error){
+    ErrorAcceso.DATOS_INVALIDOS -> "Revisa el correo y la contraseña (min 8 caracteres)"
+    ErrorAcceso.CREDENCIALES_INCORRECTAS -> "Sus credenciales son incorrectas"
+    ErrorAcceso.EMAIL_DUPLICADO -> "Ya existe una cuenta asociada a este correo"
+    ErrorAcceso.DEMASIADOS_INTENTOS -> "Demasiados intentos, vuelva a probar mas tarde"
+    ErrorAcceso.SIN_CONEXION -> "No se pudo conectar con el servidor"
+    ErrorAcceso.SERVIDOR -> "Error del servidor"
+}
+
+
 @Preview(showBackground = true, widthDp = 390, heightDp = 844)
 @Composable
 private fun AccesoScreenPreview() {
     SocietyTheme {
-        AccesoScreen(onSesionIniciada = {})
+        AccesoScreen(
+            AccesoUiState.Formulario,
+            onContinuar = {_, _, _ ->}
+        )
     }
 }

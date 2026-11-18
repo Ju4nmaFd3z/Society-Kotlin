@@ -34,3 +34,5 @@ fun SesionResponse.toModel(): Sesion {
         expiraEn = expiraEn
     )
 }
+
+data class RefrescoPeticion(val refreshToken: String)

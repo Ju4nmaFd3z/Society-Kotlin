@@ -13,4 +13,7 @@ interface SocietyAuthApi {
     @POST("auth/acceso")
     suspend fun acceso(@Body peticion: AccesoPeticion): Response<SesionResponse>
 
+    @POST("auth/refresco")
+    suspend fun refresco(@Body peticion: RefrescoPeticion): Response<SesionResponse>
+
 }

@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class AccesoViewModel @Inject constructor(
-    private val repository: AuthRepository // Dependencia a repo (el TODO del profesor)
+    private val repository: AuthRepository // Dependencia a repo
 ) : ViewModel() {
 
     //Estado de la pantalla

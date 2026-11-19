@@ -5,6 +5,7 @@ import com.alanturing.society.feature.acceso.data.remote.AuthDataSource
 import com.alanturing.society.feature.acceso.data.remote.RespuestaAuth
 import com.alanturing.society.feature.acceso.model.ResultadoAcceso
 import javax.inject.Inject
+import kotlinx.coroutines.flow.first
 
 // TODO: Versión de los términos que acepta el usuario al registrarse, cambiar por la nuesta
 private const val TERMINOS_VERSION = "1.0"
@@ -25,6 +26,10 @@ class AuthRepositoryImpl @Inject constructor(
         val respuesta = remoteDataSource.acceso(email.trim(), contrasena)
         return guardarSiCorrecto(respuesta)
     }
+
+    override suspend fun haySesion(): Boolean = localDataSource.sesion.first() != null
+
+    override suspend fun cerrarSesion() = localDataSource.borrar()
 
     // Si la API devolvió la sesión, la guarda en el móvil; si no, devuelve el error
     private suspend fun guardarSiCorrecto(respuesta: RespuestaAuth): ResultadoAcceso {

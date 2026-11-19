@@ -28,7 +28,6 @@ import com.alanturing.society.feature.crearcontenidograph.navigateToCrearConteni
 import com.alanturing.society.feature.crearcontenidograph.navigateToEleccionEstilo
 import com.alanturing.society.feature.crearcontenidograph.navigateToFotosLocal
 import com.alanturing.society.feature.empezamos.empezamosDestination
-import com.alanturing.society.feature.empezamos.navigateToEmpezamos
 import com.alanturing.society.feature.home.homeDestination
 import com.alanturing.society.feature.home.navigateToHome
 import com.alanturing.society.feature.perfil.navigateToPerfil
@@ -38,12 +37,13 @@ import com.alanturing.society.feature.publicarcontenido.publicarContenidoDestina
 
 @Composable
 fun SocietyNavHost(
+    startDestination: Any, // La ruta con la que arranca la app, la decide ArranqueViewModel
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
     NavHost(
         navController = navController,
-        startDestination = BienvenidaRoute, // TODO: elegir el destino inicial según la sesión y el estado del alta
+        startDestination = startDestination,
         modifier = modifier,
     ) {
         bienvenidaDestination(
@@ -51,7 +51,12 @@ fun SocietyNavHost(
         )
 
         accesoDestination(
-            onSesionIniciada = { navController.navigateToEmpezamos() } // TODO: ir a 02, 03, 04 o 05 según el estado del alta
+            // El ViewModel de Acceso ya ha elegido la pantalla según el estado del alta
+            onSesionIniciada = { destino ->
+                navController.navigate(destino) {
+                    popUpTo(navController.graph.id) { inclusive = true } // «atrás» no vuelve a Acceso
+                }
+            }
         )
 
         empezamosDestination(

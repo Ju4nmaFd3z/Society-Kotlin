@@ -16,7 +16,7 @@ import com.alanturing.society.feature.acceso.ui.AccesoViewModel
 fun NavController.navigateToAcceso() = navigate(AccesoRoute)
 
 // Lo que se muestra cuando la ruta está activa
-fun NavGraphBuilder.accesoDestination(onSesionIniciada: () -> Unit) {
+fun NavGraphBuilder.accesoDestination(onSesionIniciada: (Any) -> Unit) { // recibe la ruta a la que ir
     composable<AccesoRoute> {
 
         val viewModel: AccesoViewModel = hiltViewModel()
@@ -24,9 +24,10 @@ fun NavGraphBuilder.accesoDestination(onSesionIniciada: () -> Unit) {
 
         //La navegacions se ejecuta cuando cambia el estado
         LaunchedEffect(estado){
-            if(estado is AccesoUiState.Hecho){
+            val actual = estado
+            if(actual is AccesoUiState.Hecho){
                 viewModel.navegacionHecha()
-                onSesionIniciada()
+                onSesionIniciada(actual.destino)
             }
         }
         // La pantalla pinta el estado y avisa de lo que pulsa el usuario

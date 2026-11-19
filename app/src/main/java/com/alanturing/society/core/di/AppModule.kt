@@ -15,6 +15,10 @@ import com.alanturing.society.feature.acceso.data.remote.AuthDataSource
 import com.alanturing.society.feature.acceso.data.remote.AuthRemoteDataSource
 import com.alanturing.society.feature.acceso.data.repository.AuthRepository
 import com.alanturing.society.feature.acceso.data.repository.AuthRepositoryImpl
+import com.alanturing.society.feature.arranque.data.remote.RestauranteDataSource
+import com.alanturing.society.feature.arranque.data.remote.RestauranteRemoteDataSource
+import com.alanturing.society.feature.arranque.data.repository.RestauranteRepository
+import com.alanturing.society.feature.arranque.data.repository.RestauranteRepositoryImpl
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -40,4 +44,12 @@ interface AppModule {
     @Binds
     @Singleton
     fun bindsSesionLocalDataSource(ds: SesionDataStore): SesionLocalDataSource
+
+    @Binds
+    @Singleton
+    fun bindsRestauranteDataSource(ds: RestauranteRemoteDataSource): RestauranteDataSource
+
+    @Binds
+    @Singleton
+    fun bindsRestauranteRepository(repo: RestauranteRepositoryImpl): RestauranteRepository
 }

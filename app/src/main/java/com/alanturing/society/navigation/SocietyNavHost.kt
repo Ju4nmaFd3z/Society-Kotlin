@@ -56,7 +56,9 @@ fun SocietyNavHost(
                 navController.navigate(destino) {
                     popUpTo(navController.graph.id) { inclusive = true } // «atrás» no vuelve a Acceso
                 }
-            }
+            },
+            // Si Acceso es la pantalla inicial no hay nada atrás: se va a Bienvenida
+            onVolver = { if (!navController.popBackStack()) navController.navigate(BienvenidaRoute) }
         )
 
         empezamosDestination(

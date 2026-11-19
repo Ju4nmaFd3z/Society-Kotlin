@@ -64,6 +64,7 @@ enum class ModoAcceso { CREAR_CUENTA, INICIAR_SESION }
 fun AccesoScreen(
     estado: AccesoUiState,
     onContinuar: (creando: Boolean, email: String, password: String)-> Unit,
+    onVolver: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     // Compose redibuja la pantalla al cambiar el estado. conserva el valor al rotar el móvil.
@@ -173,7 +174,7 @@ fun AccesoScreen(
 
             // Boton para volver atras
             BotonVolver(
-                onClick = { }, // TODO: volver atrás cuando se conecte la navegación
+                onClick = onVolver,
                 modifier = Modifier.padding(start = 16.dp, top = 2.dp)
             )
             //Titulo
@@ -426,7 +427,8 @@ private fun AccesoScreenPreview() {
     SocietyTheme {
         AccesoScreen(
             AccesoUiState.Formulario,
-            onContinuar = {_, _, _ ->}
+            onContinuar = {_, _, _ ->},
+            onVolver = {}
         )
     }
 }

@@ -26,4 +26,15 @@ class RestauranteRemoteDataSource @Inject constructor(
             RespuestaMio.Error
         }
     }
+
+    override suspend fun lanzarAnalisis(restauranteId: String): String? {
+        return try {
+            val respuesta = api.lanzarAnalisis(restauranteId)
+            if (respuesta.isSuccessful) respuesta.body()?.analisisId else null
+        } catch (e: IOException) {
+            null
+        } catch (e: JsonParseException) {
+            null
+        }
+    }
 }

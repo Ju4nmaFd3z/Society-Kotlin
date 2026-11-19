@@ -3,6 +3,8 @@ package com.alanturing.society.core.network
 import com.alanturing.society.feature.acceso.data.remote.SocietyAuthApi
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
 /**
  * Todas las llamadas a la API de Society. Cada función devuelve un Response<T>,
  * así el DataSource decide qué hacer con un error HTTP en vez de que salte una excepción.
@@ -16,7 +18,13 @@ interface SocietyApi : SocietyAuthApi {
 
     @GET("restaurantes/mio")
     suspend fun miRestaurante(): Response<MiRestauranteResponse>
+
+    // Crea un analisis en estado EN_COLA y un trabajo ANALISIS para el worker.
+    @POST("restaurantes/{id}/analisis")
+    suspend fun lanzarAnalisis(@Path("id") restauranteId: String): Response<AnalisisLanzadoResponse>
 }
+
+data class AnalisisLanzadoResponse(val analisisId: String?)
 
 data class MiRestauranteResponse(
     val restaurante: RestauranteResumen?,

@@ -11,4 +11,7 @@ sealed interface RespuestaMio {
 
 interface RestauranteDataSource {
     suspend fun miRestaurante(): RespuestaMio
+
+    // Devuelve el id del análisis lanzado, o null si no se pudo
+    suspend fun lanzarAnalisis(restauranteId: String): String?
 }

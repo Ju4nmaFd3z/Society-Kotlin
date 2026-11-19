@@ -10,7 +10,7 @@ import com.alanturing.society.navigation.HomeRoute
 // Ruta de destino según el punto del alta, o null si falta un dato que esa pantalla necesita
 fun MiRestaurante.destino(): Any? = when (altaEstado) {
     AltaEstado.SIN_LOCAL -> EmpezamosRoute
-    AltaEstado.CREADO -> null // TODO: sin definir. Hay que lanzar el análisis antes de ir a S03
+    AltaEstado.CREADO -> null
     AltaEstado.ANALIZANDO -> analisisEnCursoId?.let { AnalisisRoute(it) }
     AltaEstado.PENDIENTE_CONFIRMAR -> restauranteId?.let { AsiTeVeInternetRoute(it) }
     AltaEstado.COMPLETADA -> HomeRoute

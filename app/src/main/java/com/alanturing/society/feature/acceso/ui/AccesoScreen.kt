@@ -104,7 +104,7 @@ fun AccesoScreen(
                     .padding(start = 24.dp, end = 24.dp, top = 96.dp, bottom = 24.dp),
                 verticalArrangement = Arrangement.spacedBy(14.dp)
             ) {
-                // Le pasamos el modo actual y que hacer cuando se pulsa una pestaña (guardar el modo nuevo)
+                // Le pasamos el modo actual y que hacer cuando se pulsa una pestaña
                 SelectorAcceso(modo = modo, onModo = { modo = it })
 
                 Campo(
@@ -114,8 +114,8 @@ fun AccesoScreen(
                     onValor = { email = it },
                     placeholder = "tu-correo@ejemplo.com",
                 )
-
                 Campo(
+
                     etiqueta = "Contraseña",
                     icono = R.drawable.ic_lock,
                     valor = password,
@@ -270,6 +270,8 @@ private fun Campo(
     iconoFinal: Int? = null,
     ayuda: String? = null
 ) {
+    // Solo lo usa el campo con icono final (la contraseña). Empieza oculta
+    var oculta by rememberSaveable { mutableStateOf(true) }
     val estiloTexto = TextStyle(
         fontFamily = Nunito,
         fontWeight = FontWeight.ExtraBold,
@@ -308,13 +310,19 @@ private fun Campo(
                     onValueChange = onValor,
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true, // No hay saltos
-                    visualTransformation = visual,
+                    visualTransformation = if (iconoFinal != null && !oculta) VisualTransformation.None else visual,
                     textStyle = estiloTexto,
                     cursorBrush = SolidColor(TintaInterfaz)
                 )
             }
             if (iconoFinal != null) {
-                Image(painter = painterResource(iconoFinal), contentDescription = null, modifier = Modifier.size(16.dp))
+                Image(
+                    painter = painterResource(iconoFinal),
+                    contentDescription = "Mostrar u ocultar contraseña",
+                    modifier = Modifier
+                        .size(16.dp)
+                        .clickable { oculta = !oculta }
+                )
             }
         }
         if (ayuda != null) {

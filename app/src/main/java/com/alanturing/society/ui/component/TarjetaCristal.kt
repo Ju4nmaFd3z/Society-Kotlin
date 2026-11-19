@@ -17,7 +17,12 @@ import androidx.compose.ui.unit.dp
 import com.alanturing.society.ui.theme.CristalAbajo
 import com.alanturing.society.ui.theme.CristalArriba
 
-// Superficie de cristal del Figma.
+/**
+ * Panel de cristal: lo que se pone dentro se coloca en columna, con 8 dp de separación entre elementos.
+ *
+ * @param modifier  para darle tamaño y posición (peso, padding, ancho...) desde la pantalla que lo usa
+ * @param contenido lo que se dibuja dentro del panel, colocado en columna
+ */
 
 @Composable
 fun TarjetaCristal(
@@ -27,7 +32,8 @@ fun TarjetaCristal(
     val forma = RoundedCornerShape(28.dp)
     Column(
         modifier = modifier
-            .shadow(12.dp, forma, clip = false)
+            //TODO: Crea un cuadrado blanco detras, mirar como arreglarlo
+            //.shadow(12.dp, forma, clip = false)
             .clip(forma)
             .background(Brush.verticalGradient(listOf(CristalArriba, CristalAbajo)))
             .border(1.25.dp, Color.White.copy(alpha = 0.9f), forma)

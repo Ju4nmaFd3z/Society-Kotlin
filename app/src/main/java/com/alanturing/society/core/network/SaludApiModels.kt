@@ -9,3 +9,5 @@ data class SaludResponse(
 fun SaludResponse.toModel(): Salud {
     return Salud(ok = this.ok)
 }
+
+

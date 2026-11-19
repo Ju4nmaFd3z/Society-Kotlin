@@ -17,6 +17,8 @@ ksp = "2.3.8"
 hilt = "2.59.2"
 hiltNavigationCompose = "1.3.0"
 retrofit = "3.0.0" # La misma versión que usa el repositorio de clase PokeDex2627, para Retrofit y su conversor
+datastore = "1.3.0"
+okhttp = "4.12.0"
 
 
 [libraries]
@@ -26,6 +28,8 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+# collectAsStateWithLifecycle: observa el estado del ViewModel respetando el ciclo de vida
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
@@ -49,6 +53,10 @@ androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navig
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 # Convierte el JSON de la API a clases de Kotlin con Gson
 retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+# DataStore: guarda los tokens de la sesión en el móvil
+androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp"}
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

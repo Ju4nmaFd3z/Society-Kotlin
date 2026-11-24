@@ -30,7 +30,7 @@ El código se organiza por pantalla o funcionalidad, no por tipo de archivo. La 
 
 - Proyecto Android base con Compose y Material 3.
 - Estructura de carpetas por funcionalidad.
-- Tema de la identidad de marca con la estética de cristal: colores de marca y de interfaz, modo claro sin color dinámico, y los componentes `TarjetaCristal`, `BotonAmarillo` y `BotonVolver` en `ui/component/`.
+- Tema de la identidad de marca con la estética de cristal: colores de marca y de interfaz, modo claro sin color dinámico, y los componentes `TarjetaCristal`, `BotonCristal` (en `BotonAmarillo.kt`) y `BotonVolver` en `ui/component/`.
 - Tipografía de la marca: DynaPuff para los títulos y Nunito para el resto, aplicadas en `ui/theme/Type.kt`.
 - Permiso de Internet en el manifiesto. Dependencias añadidas: Coil, Navigation Compose, kotlinx.serialization, Hilt y Retrofit con Gson.
 - Pantalla 02 · Empezamos (`feature/empezamos`) funcional con datos de ejemplo: busca en `assets/locales.json`, muestra sus estados y lleva a 03 · Análisis.
@@ -46,7 +46,7 @@ El código se organiza por pantalla o funcionalidad, no por tipo de archivo. La 
 - Pasar la búsqueda de 02 · Empezamos a la API de Society, que hoy lee `assets/locales.json`.
 - Cambiar los IDs inventados de la navegación por los que devuelva la API, y vaciar la pila al terminar el alta y al cerrar sesión.
 - Implementar las pantallas provisionales según el diseño de Figma.
-- Usar `TarjetaCristal` y `BotonCristal` en las pantallas, que todavía no los usan.
+- Usar `BotonCristal` en las pantallas, que todavía no lo usan. `TarjetaCristal` ya se usa en 01 · Bienvenida.
 
 ## Claves de API
 

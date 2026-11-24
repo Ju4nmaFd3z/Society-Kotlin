@@ -4,12 +4,12 @@ Implementación de cada pantalla en la app Android. El diseño, el contenido y l
 
 ## Navegación
 
-Todas las rutas están en `navigation/Rutas.kt`, una por pantalla, con los datos que recibe cada una según el diagrama de flujo de la app. El grafo está en `navigation/SocietyNavHost.kt` y se monta desde `MainActivity`. La app arranca en 01 Bienvenida.
+Todas las rutas están en `navigation/Rutas.kt`, una por pantalla, con los datos que recibe cada una según el diagrama de flujo de la app. El grafo está en `navigation/SocietyNavHost.kt` y se monta desde `MainActivity`. La pantalla de inicio la elige `ArranqueViewModel` (`feature/arranque`): 01 Bienvenida sin sesión y, con sesión, la que toca según el estado del alta.
 
 | Ruta | Pantalla | Carpeta | Recibe | Botones que llevan a otra pantalla |
 | --- | --- | --- | --- | --- |
 | `BienvenidaRoute` | 01 Bienvenida | `bienvenida` | Nada | Descubre cómo funciona → 01A |
-| `AccesoRoute` | 01A Acceso | `acceso` | Nada | Entrar → 02 |
+| `AccesoRoute` | 01A Acceso | `acceso` | Nada | Continuar → 02, 03, 04 o 05, según el alta |
 | `EmpezamosRoute` | 02 Busca tu local | `empezamos` | Nada | Analizar → 03 · Añádelo a mano → 02M |
 | `AltaManualRoute` | 02M Alta manual | `altamanual` | Nada | Guardar y analizar → 03 |
 | `AnalisisRoute` | 03 Análisis | `analisis` | `analisisId` | Ver resultado → 04 · Cancelar → vuelve a 02 |

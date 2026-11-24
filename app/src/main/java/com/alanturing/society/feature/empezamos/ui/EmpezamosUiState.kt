@@ -14,6 +14,18 @@ sealed interface EmpezamosUiState {
     data object Error : EmpezamosUiState
     data class ConDatos(
         val locales: List<Local>,
-        val hayMasPaginas: Boolean = false
+        val hayMasPaginas: Boolean = false,
+        val photoUrls: Map<String, String> = emptyMap(), // id del local → URL de su foto, se van rellenando
+        val loadingMore: Boolean = false,                // pidiendo la página siguiente
+        val loadMoreFailed: Boolean = false              // falló «Ver más resultados»
     ) : EmpezamosUiState
 }
+
+// Modal M02 «¿Es tu local?». Si es null, el modal está cerrado
+data class ConfirmPlaceState(
+    val local: Local,
+    val saving: Boolean = false,
+    val error: ConfirmError? = null
+)
+
+enum class ConfirmError { DUPLICATE, CONNECTION }

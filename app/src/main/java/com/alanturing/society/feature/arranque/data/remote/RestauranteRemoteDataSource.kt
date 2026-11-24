@@ -1,5 +1,6 @@
 package com.alanturing.society.feature.arranque.data.remote
 
+import com.alanturing.society.core.network.CreateRestaurantRequest
 import com.alanturing.society.core.network.SocietyApi
 import com.google.gson.JsonParseException
 import java.io.IOException
@@ -24,6 +25,23 @@ class RestauranteRemoteDataSource @Inject constructor(
         } catch (e: JsonParseException) {
             // La API respondió con algo que no se puede leer
             RespuestaMio.Error
+        }
+    }
+
+    override suspend fun createRestaurant(googlePlaceId: String): CreateResult {
+        return try {
+            val respuesta = api.createRestaurant(CreateRestaurantRequest(googlePlaceId))
+            val id = respuesta.body()?.id
+            when {
+                respuesta.isSuccessful && id != null -> CreateResult.Created(id)
+                respuesta.code() == 409 -> CreateResult.Duplicate
+                respuesta.code() == 401 -> CreateResult.SessionExpired
+                else -> CreateResult.Error
+            }
+        } catch (e: IOException) {
+            CreateResult.Error
+        } catch (e: JsonParseException) {
+            CreateResult.Error
         }
     }
 

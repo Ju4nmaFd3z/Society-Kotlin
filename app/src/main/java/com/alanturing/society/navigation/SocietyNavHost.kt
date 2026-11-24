@@ -63,7 +63,12 @@ fun SocietyNavHost(
 
         empezamosDestination(
             onAnalisisLanzado = { id -> navController.navigateToAnalisis(id) },
-            onAltaManual = { navController.navigateToAltaManual() }
+            onAltaManual = { navController.navigateToAltaManual() },
+            onSesionCaducada = {
+                navController.navigate(AccesoRoute) {
+                    popUpTo(navController.graph.id) { inclusive = true } // «atrás» no vuelve a la búsqueda
+                }
+            }
         )
 
         altaManualDestination(

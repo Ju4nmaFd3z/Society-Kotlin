@@ -30,18 +30,21 @@ El código se organiza por pantalla o funcionalidad, no por tipo de archivo. La 
 
 - Proyecto Android base con Compose y Material 3.
 - Estructura de carpetas por funcionalidad.
-- Tema de la identidad de marca con la estética de cristal: colores de marca y de interfaz, modo claro sin color dinámico, y los componentes `TarjetaCristal` y `BotonCristal` en `ui/component/`.
+- Tema de la identidad de marca con la estética de cristal: colores de marca y de interfaz, modo claro sin color dinámico, y los componentes `TarjetaCristal`, `BotonAmarillo` y `BotonVolver` en `ui/component/`.
 - Tipografía de la marca: DynaPuff para los títulos y Nunito para el resto, aplicadas en `ui/theme/Type.kt`.
 - Permiso de Internet en el manifiesto. Dependencias añadidas: Coil, Navigation Compose, kotlinx.serialization, Hilt y Retrofit con Gson.
 - Pantalla 02 · Empezamos (`feature/empezamos`) funcional con datos de ejemplo: busca en `assets/locales.json`, muestra sus estados y lleva a 03 · Análisis.
-- Capa de red con Retrofit, Gson y Hilt: `SocietyAuthApi`, un DataSource y un repositorio que llaman a `GET /salud` al arrancar y escriben el resultado en el log. La URL de la API sale de `API_BASE`.
+- Capa de red con Retrofit, Gson y Hilt: `SocietyApi`, con un DataSource y un repositorio que llaman a `GET /salud` al arrancar y escriben el resultado en el log. La URL de la API sale de `API_BASE`.
+- `AuthInterceptor` (`core/network/`): añade el token a cada petición, salvo las de `/auth/`, y ante un 401 renueva la sesión una vez con `/auth/refresco`.
+- Pantallas 01 · Bienvenida (`feature/bienvenida`) y 01A · Acceso (`feature/acceso`) según el diseño. Acceso crea la cuenta o inicia sesión con `SocietyAuthApi`, guarda la sesión en DataStore y muestra los errores de la API.
+- Arranque (`feature/arranque`): `ArranqueViewModel` elige la primera pantalla. Sin sesión, 01; con sesión, pregunta a `GET /restaurantes/mio` y va a 02, 03, 04 o 05 según el estado del alta; si la sesión ha caducado, a 01A. El splash sigue en pantalla mientras decide.
 - Navegación de todas las pantallas del MVP montada desde `MainActivity`: las rutas, con los datos que recibe cada pantalla, están en `navigation/Rutas.kt`, y los enlaces siguen el diagrama de flujo de la app.
 - El resto de pantallas, provisionales: cada una muestra su título y los botones que llevan a la siguiente.
 
 **Pendiente**
 
 - Pasar la búsqueda de 02 · Empezamos a la API de Society, que hoy lee `assets/locales.json`.
-- Cambiar los IDs inventados de la navegación por los que devuelva la API, elegir el destino inicial según la sesión y vaciar la pila al terminar el alta y al cerrar sesión.
+- Cambiar los IDs inventados de la navegación por los que devuelva la API, y vaciar la pila al terminar el alta y al cerrar sesión.
 - Implementar las pantallas provisionales según el diseño de Figma.
 - Usar `TarjetaCristal` y `BotonCristal` en las pantallas, que todavía no los usan.
 

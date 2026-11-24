@@ -44,7 +44,11 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.alanturing.society.R
-import com.alanturing.society.feature.acceso.model.ErrorAcceso
+import com.alanturing.society.feature.acceso.data.remote.exception.CredentialsNotValidException
+import com.alanturing.society.feature.acceso.data.remote.exception.DataNotValidException
+import com.alanturing.society.feature.acceso.data.remote.exception.EmailAlreadyInUseException
+import com.alanturing.society.feature.acceso.data.remote.exception.NoConnectionException
+import com.alanturing.society.feature.acceso.data.remote.exception.TooManyAttemptsException
 import com.alanturing.society.ui.component.BotonVolver
 import com.alanturing.society.ui.theme.Alerta
 import com.alanturing.society.ui.theme.AmarilloInterfaz
@@ -411,13 +415,14 @@ private fun BotonContinuar(habilitado: Boolean, onClick: () -> Unit) {
     }
 }
 
-private fun mensajeDe(error: ErrorAcceso): String = when(error){
-    ErrorAcceso.DATOS_INVALIDOS -> "Revisa el correo y la contraseña (min 8 caracteres)"
-    ErrorAcceso.CREDENCIALES_INCORRECTAS -> "Sus credenciales son incorrectas"
-    ErrorAcceso.EMAIL_DUPLICADO -> "Ya existe una cuenta asociada a este correo"
-    ErrorAcceso.DEMASIADOS_INTENTOS -> "Demasiados intentos, vuelva a probar mas tarde"
-    ErrorAcceso.SIN_CONEXION -> "No se pudo conectar con el servidor"
-    ErrorAcceso.SERVIDOR -> "Error del servidor"
+// Mensaje para cada excepción. ServerErrorException y cualquier otra caen en el else
+private fun mensajeDe(error: Throwable): String = when(error){
+    is DataNotValidException -> "Revisa el correo y la contraseña (min 8 caracteres)"
+    is CredentialsNotValidException -> "Sus credenciales son incorrectas"
+    is EmailAlreadyInUseException -> "Ya existe una cuenta asociada a este correo"
+    is TooManyAttemptsException -> "Demasiados intentos, vuelva a probar mas tarde"
+    is NoConnectionException -> "No se pudo conectar con el servidor"
+    else -> "Error del servidor"
 }
 
 

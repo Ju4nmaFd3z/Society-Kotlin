@@ -1,7 +1,13 @@
 package com.alanturing.society.feature.acceso.data.remote
 
 import com.alanturing.society.core.network.SocietyApi
-import com.alanturing.society.feature.acceso.model.ErrorAcceso
+import com.alanturing.society.feature.acceso.data.remote.exception.CredentialsNotValidException
+import com.alanturing.society.feature.acceso.data.remote.exception.DataNotValidException
+import com.alanturing.society.feature.acceso.data.remote.exception.EmailAlreadyInUseException
+import com.alanturing.society.feature.acceso.data.remote.exception.NoConnectionException
+import com.alanturing.society.feature.acceso.data.remote.exception.ServerErrorException
+import com.alanturing.society.feature.acceso.data.remote.exception.TooManyAttemptsException
+import com.alanturing.society.feature.acceso.model.Sesion
 import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import java.io.IOException
@@ -16,51 +22,51 @@ class AuthRemoteDataSource @Inject constructor(
         email: String,
         contrasena: String,
         terminosVersion: String
-    ): RespuestaAuth = llamar {
+    ): Result<Sesion> = llamar {
         api.registro(RegistroPeticion(email, contrasena, terminosVersion))
     }
 
-    override suspend fun acceso(email: String, contrasena: String): RespuestaAuth = llamar {
+    override suspend fun acceso(email: String, contrasena: String): Result<Sesion> = llamar {
         api.acceso(AccesoPeticion(email, contrasena))
     }
 
     // Misma forma de tratar los errores en las dos llamadas
-    private suspend fun llamar(peticion: suspend () -> Response<SesionResponse>): RespuestaAuth {
+    private suspend fun llamar(peticion: suspend () -> Response<SesionResponse>): Result<Sesion> {
         return try {
             val respuesta = peticion()
             val cuerpo = respuesta.body()
             if (respuesta.isSuccessful && cuerpo != null) {
-                RespuestaAuth.Ok(cuerpo.toModel())
+                Result.success(cuerpo.toModel())
             } else {
-                RespuestaAuth.Error(traducirError(respuesta))
+                Result.failure(traducirError(respuesta))
             }
         } catch (e: IOException) {
             // Sin conexión o sin llegar al servidor
-            RespuestaAuth.Error(ErrorAcceso.SIN_CONEXION)
+            Result.failure(NoConnectionException())
         } catch (e: JsonParseException) {
             // La API respondió con algo que no se puede leer
-            RespuestaAuth.Error(ErrorAcceso.SERVIDOR)
+            Result.failure(ServerErrorException())
         }
     }
 
-    // Lee el "code" del cuerpo de error y lo pasa a ErrorAcceso (si no se puede, usa el código HTTP)
-    private fun traducirError(respuesta: Response<*>): ErrorAcceso {
+    // Lee el "code" del cuerpo de error y lo pasa a su excepción (si no se puede, usa el código HTTP)
+    private fun traducirError(respuesta: Response<*>): Exception {
         val codigo = try {
             Gson().fromJson(respuesta.errorBody()?.string(), ErrorResponse::class.java)?.error?.code
         } catch (e: JsonParseException) {
             null
         }
         return when (codigo) {
-            "VALIDACION" -> ErrorAcceso.DATOS_INVALIDOS
-            "CREDENCIALES_INCORRECTAS" -> ErrorAcceso.CREDENCIALES_INCORRECTAS
-            "DUPLICADO" -> ErrorAcceso.EMAIL_DUPLICADO
-            "LIMITE_ALCANZADO" -> ErrorAcceso.DEMASIADOS_INTENTOS
+            "VALIDACION" -> DataNotValidException()
+            "CREDENCIALES_INCORRECTAS" -> CredentialsNotValidException()
+            "DUPLICADO" -> EmailAlreadyInUseException()
+            "LIMITE_ALCANZADO" -> TooManyAttemptsException()
             else -> when (respuesta.code()) {
-                400 -> ErrorAcceso.DATOS_INVALIDOS
-                401 -> ErrorAcceso.CREDENCIALES_INCORRECTAS
-                409 -> ErrorAcceso.EMAIL_DUPLICADO
-                429 -> ErrorAcceso.DEMASIADOS_INTENTOS
-                else -> ErrorAcceso.SERVIDOR
+                400 -> DataNotValidException()
+                401 -> CredentialsNotValidException()
+                409 -> EmailAlreadyInUseException()
+                429 -> TooManyAttemptsException()
+                else -> ServerErrorException()
             }
         }
     }

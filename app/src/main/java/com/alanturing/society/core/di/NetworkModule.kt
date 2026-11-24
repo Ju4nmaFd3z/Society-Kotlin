@@ -9,6 +9,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import javax.inject.Singleton
 
 @Module
@@ -26,15 +27,20 @@ object NetworkModule {
             .addInterceptor(authInterceptor)
             .build()
 
-    // Construye Retrofit una sola vez para toda la app, con la URL de API_BASE y el cliente anterior
     @Provides
     @Singleton
-    fun provideSocietyApi(cliente: OkHttpClient): SocietyApi {
-        val retrofit: Retrofit = Retrofit.Builder()
+    fun provideRetrofit(cliente: OkHttpClient): Retrofit =
+        Retrofit.Builder()
             .baseUrl(API_BASE)
             .client(cliente)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        return retrofit.create(SocietyApi::class.java)
-    }
+
+
+    @Provides
+    @Singleton
+    fun provideSocietyApi(retrofit: Retrofit): SocietyApi =
+        retrofit.create<SocietyApi>()
+
+
 }

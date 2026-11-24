@@ -3,11 +3,10 @@ package com.alanturing.society.feature.acceso.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alanturing.society.feature.acceso.data.repository.AuthRepository
-import com.alanturing.society.feature.acceso.model.ErrorAcceso
+import com.alanturing.society.feature.acceso.data.remote.exception.ServerErrorException
 import com.alanturing.society.feature.arranque.data.remote.RespuestaMio
 import com.alanturing.society.feature.arranque.data.repository.RestauranteRepository
 import com.alanturing.society.feature.arranque.destino
-import com.alanturing.society.feature.acceso.model.ResultadoAcceso
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -38,10 +37,10 @@ class AccesoViewModel @Inject constructor(
             else repository.acceso(email, password)
 
             // Correcto: la pantalla navega. Fallo: muestra el error
-            _estado.value=when(resultado){
-                ResultadoAcceso.Correcto -> destinoTrasAcceso()
-                is ResultadoAcceso.Fallo -> AccesoUiState.Error(resultado.error)
-            }
+            _estado.value=resultado.fold(
+                onSuccess = { destinoTrasAcceso() },
+                onFailure = { AccesoUiState.Error(it) }
+            )
         }
     }
     // Con la sesión ya guardada, pregunta en qué punto del alta está el usuario para elegir la pantalla
@@ -49,8 +48,8 @@ class AccesoViewModel @Inject constructor(
         return when (val respuesta = restauranteRepository.miRestaurante()) {
             is RespuestaMio.Ok ->
                 respuesta.miRestaurante.destino()?.let { AccesoUiState.Hecho(it) }
-                    ?: AccesoUiState.Error(ErrorAcceso.SERVIDOR)
-            else -> AccesoUiState.Error(ErrorAcceso.SERVIDOR)
+                    ?: AccesoUiState.Error(ServerErrorException())
+            else -> AccesoUiState.Error(ServerErrorException())
         }
     }
 

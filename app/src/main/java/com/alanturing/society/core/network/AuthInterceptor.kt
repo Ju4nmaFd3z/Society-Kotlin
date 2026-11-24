@@ -24,8 +24,10 @@ class AuthInterceptor @Inject constructor(
 
         val sesion = runBlocking { sesionLocal.sesion.first() } ?: return chain.proceed(peticion)
         val respuesta = chain.proceed(peticion.conToken(sesion.accessToken))
+
         if (respuesta.code != 401) return respuesta
 
+        //REfresco
         // 401: se renueva una vez. Si falla, se devuelve el 401 y ya
         val nueva = runBlocking {
             api.get().refresco(RefrescoPeticion(sesion.refreshToken)).body()
@@ -34,7 +36,9 @@ class AuthInterceptor @Inject constructor(
         runBlocking {
             sesionLocal.guardar(Sesion(nueva.accessToken, nueva.refreshToken, nueva.expiraEn))
         }
+
         respuesta.close()
+
         return chain.proceed(peticion.conToken(nueva.accessToken))
     }
 

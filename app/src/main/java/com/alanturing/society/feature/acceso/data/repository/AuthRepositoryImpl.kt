@@ -6,8 +6,8 @@ import com.alanturing.society.feature.acceso.model.Sesion
 import javax.inject.Inject
 import kotlinx.coroutines.flow.first
 
-// TODO: Versión de los términos que acepta el usuario al registrarse, cambiar por la nuesta
-private const val TERMINOS_VERSION = "1.0"
+// Versión de los términos que acepta el usuario al registrarse (la del contrato de la API)
+private const val TERMINOS_VERSION = "2026-11"
 
 class AuthRepositoryImpl @Inject constructor(
     private val remoteDataSource: AuthDataSource,

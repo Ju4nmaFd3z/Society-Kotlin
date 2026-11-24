@@ -3,7 +3,7 @@ package com.alanturing.society.feature.arranque
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alanturing.society.feature.acceso.data.repository.AuthRepository
-import com.alanturing.society.feature.arranque.data.remote.RespuestaMio
+import com.alanturing.society.feature.acceso.data.remote.exception.SessionExpiredException
 import com.alanturing.society.feature.arranque.data.repository.RestauranteRepository
 import com.alanturing.society.navigation.AccesoRoute
 import com.alanturing.society.navigation.BienvenidaRoute
@@ -39,13 +39,13 @@ class ArranqueViewModel @Inject constructor(
         // Sin token guardado: S01
         if (!authRepository.haySesion()) return BienvenidaRoute
 
-        return when (val respuesta = restauranteRepository.miRestaurante()) {
-            is RespuestaMio.Ok -> respuesta.miRestaurante.destino() ?: AccesoRoute
-            RespuestaMio.SesionCaducada -> {
-                authRepository.cerrarSesion() // la sesión murió: se borra el token
+        return restauranteRepository.miRestaurante().fold(
+            onSuccess = { it.destino() ?: AccesoRoute },
+            onFailure = { error ->
+                // La sesión murió: se borra el token. Fallo de red o servidor: el token se conserva
+                if (error is SessionExpiredException) authRepository.cerrarSesion()
                 AccesoRoute
             }
-            RespuestaMio.Error -> AccesoRoute // fallo de red o servidor: el token se conserva
-        }
+        )
     }
 }

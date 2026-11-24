@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alanturing.society.feature.acceso.data.repository.AuthRepository
 import com.alanturing.society.feature.acceso.data.remote.exception.ServerErrorException
-import com.alanturing.society.feature.arranque.data.remote.RespuestaMio
 import com.alanturing.society.feature.arranque.data.repository.RestauranteRepository
 import com.alanturing.society.feature.arranque.destino
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -44,14 +43,14 @@ class AccesoViewModel @Inject constructor(
         }
     }
     // Con la sesión ya guardada, pregunta en qué punto del alta está el usuario para elegir la pantalla
-    private suspend fun destinoTrasAcceso(): AccesoUiState {
-        return when (val respuesta = restauranteRepository.miRestaurante()) {
-            is RespuestaMio.Ok ->
-                respuesta.miRestaurante.destino()?.let { AccesoUiState.Hecho(it) }
+    private suspend fun destinoTrasAcceso(): AccesoUiState =
+        restauranteRepository.miRestaurante().fold(
+            onSuccess = { miRestaurante ->
+                miRestaurante.destino()?.let { AccesoUiState.Hecho(it) }
                     ?: AccesoUiState.Error(ServerErrorException())
-            else -> AccesoUiState.Error(ServerErrorException())
-        }
-    }
+            },
+            onFailure = { AccesoUiState.Error(it) } // Excepcion real
+        )
 
     //Evita que se dispare la navegacion una segunda vez
     fun navegacionHecha(){

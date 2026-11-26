@@ -33,6 +33,7 @@ El código se organiza por pantalla o funcionalidad, no por tipo de archivo. La 
 - Tema de la identidad de marca con la estética de cristal: colores de marca y de interfaz, modo claro sin color dinámico, y los componentes `TarjetaCristal`, `BotonCristal` (en `BotonAmarillo.kt`) y `BotonVolver` en `ui/component/`.
 - Tipografía de la marca: DynaPuff para los títulos y Nunito para el resto, aplicadas en `ui/theme/Type.kt`.
 - Permiso de Internet en el manifiesto. Dependencias añadidas: Coil, Navigation Compose, kotlinx.serialization, Hilt y Retrofit con Gson.
+- Pantalla 02M · Alta manual (`feature/altamanual`): formulario con las validaciones del contrato y sus errores por campo, que da de alta el local y lleva a 03 · Análisis.
 - Pantalla 02 · Empezamos (`feature/empezamos`) con la API de Society: busca con `/places/search`, carga más páginas con «Ver más resultados», muestra la foto de cada local con su autor y, con el modal M02, da de alta el local y lleva a 03 · Análisis.
 - Capa de red con Retrofit, Gson y Hilt: `SocietyApi`, con un DataSource y un repositorio que llaman a `GET /salud` al arrancar y escriben el resultado en el log. La URL de la API sale de `API_BASE`.
 - `AuthInterceptor` (`core/network/`): añade el token a cada petición, salvo las de `/auth/`, y ante un 401 renueva la sesión una vez con `/auth/refresco`.

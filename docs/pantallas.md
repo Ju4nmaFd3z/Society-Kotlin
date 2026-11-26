@@ -11,7 +11,7 @@ Todas las rutas están en `navigation/Rutas.kt`, una por pantalla, con los datos
 | `BienvenidaRoute` | 01 Bienvenida | `bienvenida` | Nada | Descubre cómo funciona → 01A |
 | `AccesoRoute` | 01A Acceso | `acceso` | Nada | Continuar → 02, 03, 04 o 05, según el alta |
 | `EmpezamosRoute` | 02 Busca tu local | `empezamos` | Nada | Es mi local → M02 → 03 · Añádelo a mano → 02M · Sesión caducada → 01A |
-| `AltaManualRoute` | 02M Alta manual | `altamanual` | Nada | Guardar y analizar → 03 |
+| `AltaManualRoute` | 02M Alta manual | `altamanual` | Nada | Guardar y analizar → 03 · Atrás → 02 · Sesión caducada → 01A |
 | `AnalisisRoute` | 03 Análisis | `analisis` | `analisisId` | Ver resultado → 04 · Cancelar → vuelve a 02 |
 | `AsiTeVeInternetRoute` | 04 Así te ve internet | `asiteveinternet` | `restauranteId`, `modoEdicion` | Todo correcto, seguir → 05 |
 | `HomeRoute` | 05 Home | `home` | Nada | 06, 11, 09, 12, 15 y 13 |
@@ -35,7 +35,7 @@ Cada pantalla sigue el mismo patrón, dentro de su carpeta de `feature/`:
 
 Los pasos de 06 a 08 van dentro del grafo anidado `CrearContenidoGraph` (`crearcontenidograph/CrearContenidoNavigation.kt`), para que más adelante compartan un ViewModel con el borrador de la pieza.
 
-Lo simulado está marcado con un TODO en el código. Los IDs que todavía no devuelve la API se pasan inventados (`analisis_demo`, `restaurante_demo`, `pieza_demo`, `oportunidad_demo` y `campana_demo`). También falta elegir el destino inicial según la sesión y el estado del alta, y vaciar la pila al terminar el alta y al cerrar sesión.
+Lo simulado está marcado con un TODO en el código. Los IDs que todavía no devuelve la API se pasan inventados (`restaurante_demo`, `pieza_demo`, `oportunidad_demo` y `campana_demo`). También falta elegir el destino inicial según la sesión y el estado del alta, y vaciar la pila al terminar el alta y al cerrar sesión.
 
 ## 02. Empezamos
 
@@ -60,6 +60,24 @@ Carpeta: `feature/empezamos/`, dentro de `app/src/main/java/com/alanturing/socie
 El alta usa `RestauranteRepository`, de `feature/arranque`, con `POST /restaurantes` y `POST /restaurantes/{id}/analisis`.
 
 Estado: la búsqueda funciona contra la API de Society. El alta está simulada con `RestauranteFakeDataSource` hasta que la API tenga esas dos rutas (SOCIETY-58 y SOCIETY-60): responde con la forma del contrato y, como un usuario solo puede tener un local, el segundo alta de la sesión devuelve el error 409. Para usar la API real basta con cambiar `RestauranteFakeDataSource` por `RestauranteRemoteDataSource` en `AppModule`.
+
+## 02M. Alta manual
+
+Especificación: [02M. Alta manual](https://github.com/Ju4nmaFd3z/Society/blob/main/docs/diseno/pantallas/02m-alta-manual.md).
+
+Carpeta: `feature/altamanual/`, dentro de `app/src/main/java/com/alanturing/society/`.
+
+| Archivo | Función |
+| --- | --- |
+| `AltaManualNavigation.kt` | El destino de la ruta `AltaManualRoute` en el grafo de navegación. Navega a 03 cuando el ViewModel lo pide. |
+| `ui/AltaManualScreen.kt` | La pantalla en Compose: cabecera con el botón atrás, los campos con su error debajo, los chips del tipo de local, la casilla de gestor y «Guardar y analizar». |
+| `ui/AltaManualViewModel.kt` | Guarda lo que se escribe, valida al pulsar «Guardar y analizar» y desde entonces con cada cambio, da de alta el local con `RestauranteRepository` y lanza el análisis. |
+| `ui/AltaManualUiState.kt` | El estado de la pantalla: formulario, errores, guardando y error del alta (local ya dado de alta, dato rechazado o fallo del servidor). |
+| `ui/ManualForm.kt` | El formulario y su validación, con las mismas reglas que la API (`AltaManualPeticion`), y su paso a `ManualRestaurant`, que limpia los espacios, deja la web e Instagram en null si están vacíos y quita la @ de Instagram. Es Kotlin puro, con tests en `ManualFormTest`. |
+
+El alta usa `RestauranteRepository`, de `feature/arranque`, con `POST /restaurantes` (`origen: MANUAL`) y `POST /restaurantes/{id}/analisis`. El modelo `ManualRestaurant` y el enum `PlaceType` están en `feature/arranque/model`.
+
+Estado: funcional con el alta simulada (`RestauranteFakeDataSource`), igual que en 02, hasta que la API tenga esas dos rutas (SOCIETY-58 y SOCIETY-60). Todavía sin el estilo de cristal del diseño.
 
 ## 03. Análisis
 

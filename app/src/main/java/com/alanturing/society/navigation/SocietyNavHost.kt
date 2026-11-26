@@ -72,7 +72,13 @@ fun SocietyNavHost(
         )
 
         altaManualDestination(
-            onDatosGuardados = { navController.navigateToAnalisis("analisis_demo") } // TODO: analisisId real que devuelve la API
+            onAnalisisLanzado = { id -> navController.navigateToAnalisis(id) },
+            onVolver = { navController.popBackStack() },
+            onSesionCaducada = {
+                navController.navigate(AccesoRoute) {
+                    popUpTo(navController.graph.id) { inclusive = true } // «atrás» no vuelve al formulario
+                }
+            }
         )
 
         analisisDestination(

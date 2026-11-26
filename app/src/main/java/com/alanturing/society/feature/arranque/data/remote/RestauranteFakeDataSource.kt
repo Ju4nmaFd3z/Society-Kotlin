@@ -1,5 +1,6 @@
 package com.alanturing.society.feature.arranque.data.remote
 
+import com.alanturing.society.feature.arranque.model.ManualRestaurant
 import kotlinx.coroutines.delay
 import java.util.UUID
 import javax.inject.Inject
@@ -21,7 +22,11 @@ class RestauranteFakeDataSource @Inject constructor(
 
     override suspend fun miRestaurante(): RespuestaMio = remote.miRestaurante()
 
-    override suspend fun createRestaurant(googlePlaceId: String): CreateResult {
+    override suspend fun createRestaurant(googlePlaceId: String): CreateResult = crear()
+
+    override suspend fun createManualRestaurant(restaurant: ManualRestaurant): CreateResult = crear()
+
+    private suspend fun crear(): CreateResult {
         delay(800) // para que se vea el estado «guardando»
         if (restauranteCreado != null) return CreateResult.Duplicate
 

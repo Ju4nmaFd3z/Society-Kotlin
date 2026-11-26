@@ -27,6 +27,10 @@ interface SocietyApi : SocietyAuthApi {
     @POST("restaurantes")
     suspend fun createRestaurant(@Body body: CreateRestaurantRequest): Response<RestauranteResumen>
 
+    // La misma ruta, pero con los datos que escribe el usuario en S02M
+    @POST("restaurantes")
+    suspend fun createManualRestaurant(@Body body: CreateManualRestaurantRequest): Response<RestauranteResumen>
+
     // Crea un analisis en estado EN_COLA y un trabajo ANALISIS para el worker.
     @POST("restaurantes/{id}/analisis")
     suspend fun lanzarAnalisis(@Path("id") restauranteId: String): Response<AnalisisLanzadoResponse>
@@ -62,5 +66,18 @@ data class RestauranteResumen(val id: String?)
 data class CreateRestaurantRequest(
     val googlePlaceId: String,
     val origen: String = "GOOGLE",
+    val declaraGestor: Boolean = true
+)
+
+// Cuerpo de POST /restaurantes para el alta a mano (AltaManualPeticion del contrato).
+// Gson no escribe los campos null, así que web e instagram solo viajan si se han rellenado
+data class CreateManualRestaurantRequest(
+    val nombre: String,
+    val tipo: String,
+    val direccion: String,
+    val municipio: String,
+    val web: String?,
+    val instagram: String?,
+    val origen: String = "MANUAL",
     val declaraGestor: Boolean = true
 )

@@ -29,4 +29,31 @@
     <string name="m02_cancelar">Cancelar</string>
     <string name="m02_error_duplicado">Este local ya está dado de alta con otra cuenta</string>
     <string name="m02_error_conexion">No se ha podido dar de alta. Revisa tu conexión e inténtalo de nuevo.</string>
+
+    <!-- Pantalla 02M · Alta manual -->
+    <string name="altamanual_titulo">Añade tu local</string>
+    <string name="altamanual_nombre">Nombre del local</string>
+    <string name="altamanual_tipo">Tipo de local</string>
+    <string name="altamanual_tipo_restaurante">Restaurante</string>
+    <string name="altamanual_tipo_bar">Bar</string>
+    <string name="altamanual_tipo_cafeteria">Cafetería</string>
+    <string name="altamanual_tipo_otro">Otro</string>
+    <string name="altamanual_direccion">Dirección</string>
+    <string name="altamanual_municipio">Municipio</string>
+    <string name="altamanual_web">Web (opcional)</string>
+    <string name="altamanual_instagram">Instagram (opcional)</string>
+    <string name="altamanual_gestor">Declaro que gestiono este local</string>
+    <string name="altamanual_guardar">Guardar y analizar</string>
+    <string name="altamanual_error_obligatorio">Este campo es obligatorio</string>
+    <string name="altamanual_error_tipo">Elige el tipo de local</string>
+    <plurals name="altamanual_error_corto">
+        <item quantity="one">Escribe al menos %d carácter</item>
+        <item quantity="other">Escribe al menos %d caracteres</item>
+    </plurals>
+    <string name="altamanual_error_web">Escribe una web que empiece por https://</string>
+    <string name="altamanual_error_instagram">Solo letras, números, puntos y guiones bajos, sin la @</string>
+    <string name="altamanual_error_gestor">Tienes que marcar la casilla para continuar</string>
+    <string name="altamanual_error_duplicado">Ya tienes un local dado de alta</string>
+    <string name="altamanual_error_invalido">Algún dato no es válido. Revísalo e inténtalo de nuevo.</string>
+    <string name="altamanual_error_servidor">No se ha podido guardar. Revisa tu conexión e inténtalo de nuevo.</string>
 </resources>

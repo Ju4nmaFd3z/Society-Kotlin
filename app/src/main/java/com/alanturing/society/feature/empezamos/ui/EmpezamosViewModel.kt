@@ -163,7 +163,8 @@ class EmpezamosViewModel @Inject constructor(
                 sesionCaducada()
                 null
             }
-            CreateResult.Error -> {
+            // Invalid no debería pasar: desde la búsqueda solo se manda el placeId
+            CreateResult.Invalid, CreateResult.Error -> {
                 _confirm.update { it?.copy(saving = false, error = ConfirmError.CONNECTION) }
                 null
             }

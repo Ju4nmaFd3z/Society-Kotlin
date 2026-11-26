@@ -2,6 +2,7 @@ package com.alanturing.society.feature.arranque.data.repository
 
 import com.alanturing.society.feature.arranque.data.remote.CreateResult
 import com.alanturing.society.feature.arranque.data.remote.RespuestaMio
+import com.alanturing.society.feature.arranque.model.ManualRestaurant
 import com.alanturing.society.feature.arranque.model.AltaEstado
 import com.alanturing.society.feature.arranque.data.remote.RestauranteDataSource
 import javax.inject.Inject
@@ -24,6 +25,9 @@ class RestauranteRepositoryImpl @Inject constructor(
 
     override suspend fun createRestaurant(googlePlaceId: String): CreateResult =
         remoteDataSource.createRestaurant(googlePlaceId)
+
+    override suspend fun createManualRestaurant(restaurant: ManualRestaurant): CreateResult =
+        remoteDataSource.createManualRestaurant(restaurant)
 
     override suspend fun launchAnalysis(restauranteId: String): String? =
         remoteDataSource.lanzarAnalisis(restauranteId)

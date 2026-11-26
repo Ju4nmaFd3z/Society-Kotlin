@@ -46,10 +46,11 @@ fun SearchResponse.toModel() = PlacePage(
     nextPageToken = nextPageToken
 )
 
-// Sin placeId no se puede dar de alta y sin nombre no hay qué pintar: se descarta
+// Sin placeId no se puede dar de alta y sin nombre no hay qué pintar: se descarta.
+// La API manda el nombre vacío ('') si Google no lo trae, por eso no basta con mirar el null
 private fun PlaceResponse.toModel(): Local? {
     val id = placeId ?: return null
-    val nombreLocal = nombre ?: return null
+    val nombreLocal = nombre?.takeIf { it.isNotBlank() } ?: return null
     return Local(
         id = id,
         name = nombreLocal,

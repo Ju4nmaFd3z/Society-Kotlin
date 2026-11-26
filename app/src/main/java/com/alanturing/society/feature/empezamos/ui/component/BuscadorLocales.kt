@@ -35,7 +35,7 @@ fun BuscadorLocales(
     ) {
         OutlinedTextField( // Igual que text field pero con borde alrededor
             value = texto,
-            onValueChange = { if (it.length <= MAX_CARACTERES) cambioTexto(it) },
+            onValueChange = { cambioTexto(it.take(MAX_CARACTERES)) }, // si se pega un texto largo, se recorta
             modifier = Modifier.weight(1f), // Ocupa el ancho que deja el botón
             singleLine = true, // El texto ocupa solo una línea
             label = { Text(stringResource(R.string.empezamos_buscador)) },

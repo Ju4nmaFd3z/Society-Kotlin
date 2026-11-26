@@ -43,7 +43,7 @@ class PlacesApiModelsTest {
 
     @Test
     fun `descarta los locales sin id o sin nombre`() {
-        val pagina = leer("""{"resultados":[{"nombre":"Sin id"},{"placeId":"x"},{"placeId":"ok","nombre":"Bueno"}]}""")
+        val pagina = leer("""{"resultados":[{"nombre":"Sin id"},{"placeId":"x"},{"placeId":"y","nombre":""},{"placeId":"ok","nombre":"Bueno"}]}""")
 
         assertEquals(listOf("ok"), pagina.locales.map { it.id })
     }

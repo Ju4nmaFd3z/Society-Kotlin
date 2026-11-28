@@ -33,7 +33,8 @@ El código se organiza por pantalla o funcionalidad, no por tipo de archivo. La 
 - Tema de la identidad de marca con la estética de cristal: colores de marca y de interfaz, modo claro sin color dinámico, y los componentes `TarjetaCristal`, `BotonCristal` (en `BotonAmarillo.kt`) y `BotonVolver` en `ui/component/`.
 - Tipografía de la marca: DynaPuff para los títulos y Nunito para el resto, aplicadas en `ui/theme/Type.kt`.
 - Permiso de Internet en el manifiesto. Dependencias añadidas: Coil, Navigation Compose, kotlinx.serialization, Hilt y Retrofit con Gson.
-- Pantalla 02 · Empezamos (`feature/empezamos`) funcional con datos de ejemplo: busca en `assets/locales.json`, muestra sus estados y lleva a 03 · Análisis.
+- Pantalla 02M · Alta manual (`feature/altamanual`): formulario con las validaciones del contrato y sus errores por campo, que da de alta el local y lleva a 03 · Análisis.
+- Pantalla 02 · Empezamos (`feature/empezamos`) con la API de Society: busca con `/places/search`, carga más páginas con «Ver más resultados», muestra la foto de cada local con su autor y, con el modal M02, da de alta el local y lleva a 03 · Análisis.
 - Capa de red con Retrofit, Gson y Hilt: `SocietyApi`, con un DataSource y un repositorio que llaman a `GET /salud` al arrancar y escriben el resultado en el log. La URL de la API sale de `API_BASE`.
 - `AuthInterceptor` (`core/network/`): añade el token a cada petición, salvo las de `/auth/`, y ante un 401 renueva la sesión una vez con `/auth/refresco`.
 - Pantallas 01 · Bienvenida (`feature/bienvenida`) y 01A · Acceso (`feature/acceso`) según el diseño. Acceso crea la cuenta o inicia sesión con `SocietyAuthApi`, guarda la sesión en DataStore y muestra los errores de la API.
@@ -43,7 +44,7 @@ El código se organiza por pantalla o funcionalidad, no por tipo de archivo. La 
 
 **Pendiente**
 
-- Pasar la búsqueda de 02 · Empezamos a la API de Society, que hoy lee `assets/locales.json`.
+- Cambiar el alta simulada (`RestauranteFakeDataSource`) por la real cuando la API tenga `POST /restaurantes` y `POST /restaurantes/{id}/analisis`.
 - Cambiar los IDs inventados de la navegación por los que devuelva la API, y vaciar la pila al terminar el alta y al cerrar sesión.
 - Implementar las pantallas provisionales según el diseño de Figma.
 - Usar `BotonCristal` en las pantallas, que todavía no lo usan. `TarjetaCristal` ya se usa en 01 · Bienvenida.

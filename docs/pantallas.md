@@ -10,8 +10,8 @@ Todas las rutas están en `navigation/Rutas.kt`, una por pantalla, con los datos
 | --- | --- | --- | --- | --- |
 | `BienvenidaRoute` | 01 Bienvenida | `bienvenida` | Nada | Descubre cómo funciona → 01A |
 | `AccesoRoute` | 01A Acceso | `acceso` | Nada | Continuar → 02, 03, 04 o 05, según el alta |
-| `EmpezamosRoute` | 02 Busca tu local | `empezamos` | Nada | Analizar → 03 · Añádelo a mano → 02M |
-| `AltaManualRoute` | 02M Alta manual | `altamanual` | Nada | Guardar y analizar → 03 |
+| `EmpezamosRoute` | 02 Busca tu local | `empezamos` | Nada | Es mi local → M02 → 03 · Añádelo a mano → 02M · Sesión caducada → 01A |
+| `AltaManualRoute` | 02M Alta manual | `altamanual` | Nada | Guardar y analizar → 03 · Atrás → 02 · Sesión caducada → 01A |
 | `AnalisisRoute` | 03 Análisis | `analisis` | `analisisId` | Ver resultado → 04 · Cancelar → vuelve a 02 |
 | `AsiTeVeInternetRoute` | 04 Así te ve internet | `asiteveinternet` | `restauranteId`, `modoEdicion` | Todo correcto, seguir → 05 |
 | `HomeRoute` | 05 Home | `home` | Nada | 06, 11, 09, 12, 15 y 13 |
@@ -35,7 +35,7 @@ Cada pantalla sigue el mismo patrón, dentro de su carpeta de `feature/`:
 
 Los pasos de 06 a 08 van dentro del grafo anidado `CrearContenidoGraph` (`crearcontenidograph/CrearContenidoNavigation.kt`), para que más adelante compartan un ViewModel con el borrador de la pieza.
 
-Lo simulado está marcado con un TODO en el código. Los IDs que todavía no devuelve la API se pasan inventados (`analisis_demo`, `restaurante_demo`, `pieza_demo`, `oportunidad_demo` y `campana_demo`). También falta elegir el destino inicial según la sesión y el estado del alta, y vaciar la pila al terminar el alta y al cerrar sesión.
+Lo simulado está marcado con un TODO en el código. Los IDs que todavía no devuelve la API se pasan inventados (`restaurante_demo`, `pieza_demo`, `oportunidad_demo` y `campana_demo`). También falta elegir el destino inicial según la sesión y el estado del alta, y vaciar la pila al terminar el alta y al cerrar sesión.
 
 ## 02. Empezamos
 
@@ -46,18 +46,38 @@ Carpeta: `feature/empezamos/`, dentro de `app/src/main/java/com/alanturing/socie
 | Archivo | Función |
 | --- | --- |
 | `EmpezamosNavigation.kt` | El destino de la ruta `EmpezamosRoute` en el grafo de navegación. |
-| `ui/EmpezamosScreen.kt` | La pantalla en Compose: `BuscadorLocales` y enlace «Añádelo a mano» arriba y, debajo, según el estado, el mensaje, la carga, el error con Reintentar o la lista de locales, con una `LocalCard` por local. |
-| `ui/EmpezamosViewModel.kt` | Lanza la búsqueda en `PlacesRepository`, guarda el estado actual y permite reintentar la última búsqueda tras un error. |
-| `ui/EmpezamosUiState.kt` | Los estados de la pantalla: inicial, cargando, vacío, error y con datos. |
-| `ui/component/BuscadorLocales.kt` | El campo de búsqueda con su botón Buscar. |
-| `ui/component/LocalCard.kt` | La tarjeta de un local, con el botón Analizar. |
-| `data/PlacesRepository.kt` | Punto único de acceso a los datos para el ViewModel. De momento lee `assets/locales.json` y filtra por nombre o dirección. |
-| `data/dto/PlacesDto.kt` | La respuesta tal y como llega en el JSON, con la misma forma que la de Google Places. |
-| `model/Local.kt` | El local tal como lo usa la interfaz. |
+| `ui/EmpezamosScreen.kt` | La pantalla en Compose: `BuscadorLocales` y enlace «Añádelo a mano» arriba y, debajo, según el estado, el mensaje, la carga, el error con Reintentar o la lista de locales, con el resumen de resultados, una `LocalCard` por local y «Ver más resultados» al final. Encima, el modal M02 cuando hay un local elegido. |
+| `ui/EmpezamosViewModel.kt` | Busca en `PlaceRepository`, pide las páginas siguientes con `nextPageToken` (60 resultados como máximo) y la primera foto de cada local. Desde el modal M02 da de alta el local con `RestauranteRepository`, lanza el análisis y avisa de a dónde navegar. |
+| `ui/EmpezamosUiState.kt` | Los estados de la pantalla (inicial, cargando, vacío, error y con datos) y el del modal M02 (`ConfirmPlaceState`). |
+| `ui/component/BuscadorLocales.kt` | El campo de búsqueda con su botón Buscar. Busca con 3 caracteres o más, hasta 100. |
+| `ui/component/LocalCard.kt` | La tarjeta de un local: foto, nombre, dirección, reseñas, autor de la foto y «Google Maps», que exigen las políticas de Places, y el botón «Es mi local». |
+| `ui/component/ConfirmPlaceDialog.kt` | El modal M02 «¿Es tu local?», con la casilla obligatoria «Soy propietario o gestor» y los errores del alta. |
+| `data/remote/PlacesApiModels.kt` | Las respuestas de `/places/search` y `/places/photo` con la forma del contrato, y su paso al modelo. |
+| `data/remote/PlaceDataSource.kt` y `PlaceRemoteDataSource.kt` | Llaman a la API y traducen la respuesta: página de locales, sesión caducada o error. |
+| `data/repository/PlaceRepository.kt` y `PlaceRepositoryImpl.kt` | Lo que usa el ViewModel. Guarda en memoria las URL de las fotos ya pedidas. |
+| `model/Local.kt` | El local tal como lo usa la interfaz, su foto (`PlacePhoto`) y una página de resultados (`PlacePage`). |
 
-Los datos de ejemplo están en `app/src/main/assets/locales.json`.
+El alta usa `RestauranteRepository`, de `feature/arranque`, con `POST /restaurantes` y `POST /restaurantes/{id}/analisis`.
 
-Estado: funcional con los datos de ejemplo. La búsqueda filtra los locales de `locales.json` por nombre o dirección, con una espera simulada de medio segundo para que se vea la carga, y la pantalla muestra sus cinco estados. Al pulsar Analizar en una tarjeta se navega a Análisis con el ID del local, provisional hasta que la API devuelva el `analisisId`. Pendiente: buscar contra la API de Society (`PlacesApi`, con Retrofit) y cargar por páginas (`LocalesPagingSource`, con Paging 3); al hacerlo solo cambia `PlacesRepository`.
+Estado: la búsqueda funciona contra la API de Society. El alta está simulada con `RestauranteFakeDataSource` hasta que la API tenga esas dos rutas (SOCIETY-58 y SOCIETY-60): responde con la forma del contrato y, como un usuario solo puede tener un local, el segundo alta de la sesión devuelve el error 409. Para usar la API real basta con cambiar `RestauranteFakeDataSource` por `RestauranteRemoteDataSource` en `AppModule`.
+
+## 02M. Alta manual
+
+Especificación: [02M. Alta manual](https://github.com/Ju4nmaFd3z/Society/blob/main/docs/diseno/pantallas/02m-alta-manual.md).
+
+Carpeta: `feature/altamanual/`, dentro de `app/src/main/java/com/alanturing/society/`.
+
+| Archivo | Función |
+| --- | --- |
+| `AltaManualNavigation.kt` | El destino de la ruta `AltaManualRoute` en el grafo de navegación. Navega a 03 cuando el ViewModel lo pide. |
+| `ui/AltaManualScreen.kt` | La pantalla en Compose: cabecera con el botón atrás, los campos con su error debajo, los chips del tipo de local, la casilla de gestor y «Guardar y analizar». |
+| `ui/AltaManualViewModel.kt` | Guarda lo que se escribe, valida al pulsar «Guardar y analizar» y desde entonces con cada cambio, da de alta el local con `RestauranteRepository` y lanza el análisis. |
+| `ui/AltaManualUiState.kt` | El estado de la pantalla: formulario, errores, guardando y error del alta (local ya dado de alta, dato rechazado o fallo del servidor). |
+| `ui/ManualForm.kt` | El formulario y su validación, con las mismas reglas que la API (`AltaManualPeticion`), y su paso a `ManualRestaurant`, que limpia los espacios, deja la web e Instagram en null si están vacíos y quita la @ de Instagram. Es Kotlin puro, con tests en `ManualFormTest`. |
+
+El alta usa `RestauranteRepository`, de `feature/arranque`, con `POST /restaurantes` (`origen: MANUAL`) y `POST /restaurantes/{id}/analisis`. El modelo `ManualRestaurant` y el enum `PlaceType` están en `feature/arranque/model`.
+
+Estado: funcional con el alta simulada (`RestauranteFakeDataSource`), igual que en 02, hasta que la API tenga esas dos rutas (SOCIETY-58 y SOCIETY-60). Todavía sin el estilo de cristal del diseño.
 
 ## 03. Análisis
 

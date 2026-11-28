@@ -24,7 +24,7 @@ Las rutas parten de `app/src/main/java/com/alanturing/society/`.
 
 - `XNavigation.kt`: cómo se llega a la pantalla y qué se muestra cuando su ruta está activa.
 - `ui/`: lo que se ve en pantalla y su ViewModel. Las partes reutilizables van en `ui/component/`.
-- `data/`: de dónde salen los datos: el DataSource que llama a la API y el repositorio que usa el ViewModel. Los objetos que devuelve la API van en `data/dto/`.
+- `data/`: de dónde salen los datos. En `data/remote/`, el DataSource que llama a la API y los objetos que devuelve, en `XApiModels.kt`. En `data/repository/`, el repositorio que usa el ViewModel.
 - `model/`: las clases con las que trabaja la interfaz.
 
 ## Dependencias

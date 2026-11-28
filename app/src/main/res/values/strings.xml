@@ -4,8 +4,56 @@
     <!-- Pantalla 02 · Empezamos -->
     <string name="empezamos_buscador">Nombre del local o zona</string>
     <string name="empezamos_estado_inicial">No se han buscado locales todavía</string>
-    <string name="empezamos_estado_vacio">No se han encontrado locales</string>
+    <string name="empezamos_estado_vacio">No encontramos tu local</string>
     <string name="empezamos_estado_error">Error de red. Revisa tu conexión e inténtalo de nuevo.</string>
     <string name="empezamos_reintentar">Reintentar</string>
     <string name="empezamos_alta_manual">¿No aparece tu local? Añádelo a mano</string>
+    <string name="empezamos_buscar">Buscar</string>
+    <plurals name="empezamos_resumen">
+        <item quantity="one">%d resultado en Google Maps</item>
+        <item quantity="other">%d resultados en Google Maps</item>
+    </plurals>
+    <string name="empezamos_ver_mas">Ver más resultados</string>
+    <string name="empezamos_ver_mas_error">No se han podido cargar más resultados</string>
+
+    <!-- Tarjeta de local -->
+    <string name="local_es_mi_local">Es mi local</string>
+    <string name="local_sin_resenas">Sin reseñas</string>
+    <string name="local_foto_de">Foto: %s</string>
+    <string name="local_google_maps">Google Maps</string>
+
+    <!-- Modal M02 · ¿Es tu local? -->
+    <string name="m02_titulo">¿Es tu local?</string>
+    <string name="m02_gestor">Soy propietario o gestor</string>
+    <string name="m02_confirmar">Sí, es mi local</string>
+    <string name="m02_cancelar">Cancelar</string>
+    <string name="m02_error_duplicado">Este local ya está dado de alta con otra cuenta</string>
+    <string name="m02_error_conexion">No se ha podido dar de alta. Revisa tu conexión e inténtalo de nuevo.</string>
+
+    <!-- Pantalla 02M · Alta manual -->
+    <string name="altamanual_titulo">Añade tu local</string>
+    <string name="altamanual_nombre">Nombre del local</string>
+    <string name="altamanual_tipo">Tipo de local</string>
+    <string name="altamanual_tipo_restaurante">Restaurante</string>
+    <string name="altamanual_tipo_bar">Bar</string>
+    <string name="altamanual_tipo_cafeteria">Cafetería</string>
+    <string name="altamanual_tipo_otro">Otro</string>
+    <string name="altamanual_direccion">Dirección</string>
+    <string name="altamanual_municipio">Municipio</string>
+    <string name="altamanual_web">Web (opcional)</string>
+    <string name="altamanual_instagram">Instagram (opcional)</string>
+    <string name="altamanual_gestor">Declaro que gestiono este local</string>
+    <string name="altamanual_guardar">Guardar y analizar</string>
+    <string name="altamanual_error_obligatorio">Este campo es obligatorio</string>
+    <string name="altamanual_error_tipo">Elige el tipo de local</string>
+    <plurals name="altamanual_error_corto">
+        <item quantity="one">Escribe al menos %d carácter</item>
+        <item quantity="other">Escribe al menos %d caracteres</item>
+    </plurals>
+    <string name="altamanual_error_web">Escribe una web que empiece por https://</string>
+    <string name="altamanual_error_instagram">Solo letras, números, puntos y guiones bajos, sin la @</string>
+    <string name="altamanual_error_gestor">Tienes que marcar la casilla para continuar</string>
+    <string name="altamanual_error_duplicado">Ya tienes un local dado de alta</string>
+    <string name="altamanual_error_invalido">Algún dato no es válido. Revísalo e inténtalo de nuevo.</string>
+    <string name="altamanual_error_servidor">No se ha podido guardar. Revisa tu conexión e inténtalo de nuevo.</string>
 </resources>
